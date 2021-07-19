@@ -163,14 +163,31 @@ final class Better_Banners
     }
 
     /**
-     * Handle plugin uninstallation.
+     * Register uninstall hook.
      *
      * @return void
      */
     private function register_uninstall_hook() : void {
         register_uninstall_hook(
-            plugin_dir_path( __FILE__ ) . '../uninstall.php',
-            'better_banners_uninstall'
+            plugin_dir_path( __FILE__ ),
+            array(
+                $this,
+                'uninstall',
+            )
         );
+    }
+
+    /**
+     * Handle the plugin uninstallation.
+     *
+     * @return void
+     */
+    public function uninstall() : void {
+        global $wpdb;
+
+        $table_name = $wpdb->prefix . '_posts';
+        $post_type = self::$custom_post_type_slug;
+
+        $wpdb->query("DELETE FROM `$table_name` WHERE `post_type` = $post_type;");
     }
 }
