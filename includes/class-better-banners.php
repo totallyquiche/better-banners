@@ -169,7 +169,7 @@ final class Better_Banners
      */
     private function register_uninstall_hook() : void {
         register_uninstall_hook(
-            'uninstall.php',
+            plugin_dir_path( __FILE__ ) . '../uninstall.php',
             'better_banners_uninstall'
         );
     }
