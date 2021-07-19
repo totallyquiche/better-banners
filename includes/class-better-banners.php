@@ -12,6 +12,7 @@ final class Better_Banners
     public function run() : void {
         $this->init();
         $this->wp_enqueue_scripts();
+        $this->admin_enqueue_scripts();
         $this->wp_body_open();
     }
 
@@ -93,7 +94,34 @@ final class Better_Banners
     public function enqueue_styles() : void {
         wp_enqueue_style(
             'better_banners_styles',
-           plugin_dir_url(__FILE__) . '../assets/css/styles.css'
+           plugin_dir_url(__FILE__) . '../assets/css/public.css'
+        );
+    }
+
+    /**
+     * Enqueue admin scripts/styles.
+     *
+     * @return void
+     */
+    public function admin_enqueue_scripts() : void {
+        add_action(
+            'admin_enqueue_scripts',
+            array(
+                $this,
+                'enqueue_admin_styles',
+            )
+        );
+    }
+
+    /**
+     * Enqueue admin styles.
+     *
+     * @return void
+     */
+    public function enqueue_admin_styles() : void {
+        wp_enqueue_style(
+            'better_banners_admin_styles',
+            plugin_dir_url(__FILE__) . '../assets/css/admin.css'
         );
     }
 
