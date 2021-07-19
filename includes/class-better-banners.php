@@ -5,6 +5,13 @@ namespace TotallyQuiche\BetterBanners;
 final class Better_Banners
 {
     /**
+     * The custom post type slug.
+     *
+     * @var string
+     */
+    private string $custom_post_type_slug = 'better_banners_post';
+
+    /**
      * Run the plugin.
      *
      * @return void
@@ -14,8 +21,8 @@ final class Better_Banners
         $this->wp_enqueue_scripts();
 
         if (
-            ($post_type = $_GET['post_type']) === 'better_banners_post' ||
-            get_post_type($_GET['post']) === 'better_banners_post'
+            ($post_type = $_GET['post_type']) === $this->custom_post_type_slug ||
+            get_post_type($_GET['post']) === $this->custom_post_type_slug
         ) {
             $this->admin_enqueue_scripts();
         }
@@ -61,7 +68,7 @@ final class Better_Banners
     public function display_banners() : void {
         $posts = get_posts(
             array(
-                'post_type' => 'better_banners_post',
+                'post_type' => $this->custom_post_type_slug,
                 'post_status' => 'publish',
                 'numberposts' => -1,
             )
@@ -139,7 +146,7 @@ final class Better_Banners
      */
     public function register_post_type() : void {
         register_post_type(
-            'better_banners_post',
+            $this->custom_post_type_slug,
             array(
                 'description' => 'A Better Banners banner.',
                 'public' => true,
