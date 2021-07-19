@@ -144,7 +144,7 @@ final class Better_Banners
      *
      * @return void
      */
-    private function register_post_type() : void {
+    public function register_post_type() : void {
         register_post_type(
             self::$custom_post_type_slug,
             array(
