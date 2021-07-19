@@ -9,7 +9,7 @@ final class Better_Banners
      *
      * @var string
      */
-    private string $custom_post_type_slug = 'better_banners_post';
+    private static string $custom_post_type_slug = 'better_banners_post';
 
     /**
      * Run the plugin.
@@ -21,8 +21,8 @@ final class Better_Banners
         $this->wp_enqueue_scripts();
 
         if (
-            ($post_type = $_GET['post_type']) === $this->custom_post_type_slug ||
-            get_post_type($_GET['post']) === $this->custom_post_type_slug
+            ($post_type = $_GET['post_type']) === self::$custom_post_type_slug ||
+            get_post_type($_GET['post']) === self::$custom_post_type_slug
         ) {
             $this->admin_enqueue_scripts();
         }
@@ -69,7 +69,7 @@ final class Better_Banners
     public function display_banners() : void {
         $posts = get_posts(
             array(
-                'post_type' => $this->custom_post_type_slug,
+                'post_type' => self::$custom_post_type_slug,
                 'post_status' => 'publish',
                 'numberposts' => -1,
             )
@@ -147,7 +147,7 @@ final class Better_Banners
      */
     private function register_post_type() : void {
         register_post_type(
-            $this->custom_post_type_slug,
+            self::$custom_post_type_slug,
             array(
                 'description' => 'A Better Banners banner.',
                 'public' => true,
