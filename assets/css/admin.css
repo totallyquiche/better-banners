@@ -1,4 +1,6 @@
 #minor-publishing,
-#edit-slug-box {
+#edit-slug-box,
+.row-actions,
+#message a {
     display: none;
 }
