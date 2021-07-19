@@ -9,7 +9,7 @@ final class Better_Banners
      *
      * @var string
      */
-    private static string $custom_post_type_slug = 'better_banners_post';
+    public static string $custom_post_type_slug = 'better_banners_post';
 
     /**
      * Run the plugin.
@@ -168,11 +168,9 @@ final class Better_Banners
      * @return void
      */
     private function register_uninstall_hook() : void {
-        global $wpdb;
-
-        $table_name = $wpdb->prefix . 'posts';
-        $post_type = self::$custom_post_type_slug;
-
-        $wpdb->query("DELETE FROM `$table_name` WHERE `post_type` = $post_type;");
+        register_uninstall_hook(
+            'uninstall.php',
+            'better_banners_uninstall'
+        );
     }
 }
