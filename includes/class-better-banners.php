@@ -28,6 +28,7 @@ final class Better_Banners
         }
 
         $this->wp_body_open();
+        $this->register_uninstall_hook();
     }
 
     /**
@@ -90,7 +91,7 @@ final class Better_Banners
      *
      * @return void
      */
-    public function wp_enqueue_scripts() : void {
+    private function wp_enqueue_scripts() : void {
         add_action(
             'wp_enqueue_scripts',
             array(
@@ -117,7 +118,7 @@ final class Better_Banners
      *
      * @return void
      */
-    public function admin_enqueue_scripts() : void {
+    private function admin_enqueue_scripts() : void {
         add_action(
             'admin_enqueue_scripts',
             array(
@@ -144,7 +145,7 @@ final class Better_Banners
      *
      * @return void
      */
-    public function register_post_type() : void {
+    private function register_post_type() : void {
         register_post_type(
             $this->custom_post_type_slug,
             array(
@@ -159,5 +160,19 @@ final class Better_Banners
                 ),
             )
         );
+    }
+
+    /**
+     * Handle plugin uninstallation.
+     *
+     * @return void
+     */
+    private function register_uninstall_hook() : void {
+        global $wpdb;
+
+        $table_name = $wpdb->prefix . 'posts';
+        $post_type = self::$custom_post_type_slug;
+
+        $wpdb->query("DELETE FROM `$table_name` WHERE `post_type` = $post_type;");
     }
 }
