@@ -12,7 +12,14 @@ final class Better_Banners
     public function run() : void {
         $this->init();
         $this->wp_enqueue_scripts();
-        $this->admin_enqueue_scripts();
+
+        if (
+            ($post_type = $_GET['post_type']) === 'better_banners_post' ||
+            get_post_type($_GET['post']) === 'better_banners_post'
+        ) {
+            $this->admin_enqueue_scripts();
+        }
+
         $this->wp_body_open();
     }
 
