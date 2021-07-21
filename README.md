@@ -1,5 +1,5 @@
 # Better Banners
 
-Create and customize banners to display at the top of your website.
+Easily add customizable banners to your WordPress site.
 
-!['thumbnail.png']
+!['Better Banner thumbnail'](thumbnail.png)
