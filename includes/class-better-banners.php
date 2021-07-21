@@ -16,13 +16,6 @@ final class Better_Banners
      *
      * @var string
      */
-    private string $default_font_color = 'ffffff';
-
-    /**
-     * The default background color for the banners.
-     *
-     * @var string
-     */
     private string $default_background_color = '007bff';
 
     /**
@@ -93,10 +86,9 @@ final class Better_Banners
         echo '<div class="better-banners">';
 
         foreach ( $posts as $post ) {
-            $font_color = get_post_meta( $post->ID, 'font_color' )[0] ?? $this->default_font_color;
             $background_color = get_post_meta( $post->ID, 'background_color' )[0] ?? $this->default_background_color;
 
-            echo '<div class="better-banners-banner" style="color: #' . $font_color . ';background-color: #' . $background_color . '";>';
+            echo '<div class="better-banners-banner" style="background-color: #' . $background_color . '";>';
             echo $post->post_content;
             echo '</div>';
         }
@@ -244,16 +236,12 @@ final class Better_Banners
      */
     public function render_meta_box() : void {
         $post_meta_input = get_post_meta(get_the_ID());
-        $font_color = '#' . ($post_meta_input['font_color'][0] ?? $this->default_font_color);
         $background_color = '#' . ($post_meta_input['background_color'][0] ?? $this->default_background_color);
 
         echo <<<HTML
-<div id="color-pickers-container">
-    <span>Font Color</span>
+<div id="color-picker-container">
+    <span>Background Color</span>
     <br/>
-    <input id="font-color" class="color-picker" type="text" value="{$font_color}" />
-    <br/>
-    <span>Background Color</span><br/>
     <input id="background-color" class="color-picker" type="text" value="{$background_color}" />
 </div>
 HTML;
@@ -265,11 +253,10 @@ HTML;
      * @return void
      */
     private function admin_post() : void {
-        if (isset($_POST['post_ID']) && isset($_POST['background-color']) && isset($_POST['font-color'])) {
+        if (isset($_POST['post_ID']) && isset($_POST['background-color'])) {
             wp_update_post(array(
                 'ID' => $_POST['post_ID'],
                 'meta_input' => array(
-                    'font_color' => $_POST['font-color'],
                     'background_color' => $_POST['background-color'],
                 ),
             ));
