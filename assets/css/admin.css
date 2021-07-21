@@ -4,3 +4,10 @@
 #message a {
     display: none;
 }
+
+#background-color-container > span {
+    display: inline-block;
+    line-height: 28px;
+    vertical-align: middle;
+    margin-top: 8px;
+}

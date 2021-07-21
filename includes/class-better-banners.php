@@ -12,6 +12,13 @@ final class Better_Banners
     public static string $custom_post_type_slug = 'better_banners_post';
 
     /**
+     * The default background color for the banners.
+     *
+     * @var string
+     */
+    private string $default_background_color = '007bff';
+
+    /**
      * Run the plugin.
      *
      * @return void
@@ -29,6 +36,7 @@ final class Better_Banners
 
         $this->wp_body_open();
         $this->add_meta_boxes();
+        $this->admin_post();
     }
 
     /**
@@ -78,7 +86,9 @@ final class Better_Banners
         echo '<div class="better-banners">';
 
         foreach ( $posts as $post ) {
-            echo '<div class="better-banners-banner">';
+            $background_color = get_post_meta( $post->ID, 'background_color' )[0] ?? $this->default_background_color;
+
+            echo '<div class="better-banners-banner" style="background-color: #' . $background_color . '";>';
             echo $post->post_content;
             echo '</div>';
         }
@@ -126,6 +136,14 @@ final class Better_Banners
                 'enqueue_admin_styles',
             )
         );
+
+        add_action(
+            'admin_enqueue_scripts',
+            array(
+                $this,
+                'enqueue_admin_scripts',
+            )
+        );
     }
 
     /**
@@ -134,9 +152,26 @@ final class Better_Banners
      * @return void
      */
     public function enqueue_admin_styles() : void {
+        wp_enqueue_style('wp-color-picker');
+
         wp_enqueue_style(
-            'better_banners_admin_styles',
+            'better_banners_admin_css',
             plugin_dir_url(__FILE__) . '../assets/css/admin.css'
+        );
+    }
+
+    /**
+     * Enqueue admin scripts.
+     *
+     * @return void
+     */
+    public function enqueue_admin_scripts() : void {
+        wp_enqueue_script( 'wp-color-picker');
+
+        wp_enqueue_script(
+            'better_banners_admin_js',
+            plugin_dir_url(__FILE__) . '../assets/js/admin.js',
+            array('iris')
         );
     }
 
@@ -195,11 +230,32 @@ final class Better_Banners
     }
 
     /**
-     * Add the custom post meta box.
+     * Render the Settings meta box on the custom post type page.
      *
      * @return void
      */
     public function render_meta_box() : void {
-        // TODO: Add meta box content
+        echo '<div id="background-color-container">';
+        echo '<span>Background Color</span>&nbsp;';
+        echo '<input id="background-color" class="color-picker" type="text" value="#' .
+             (get_post_meta(get_the_ID(), 'background_color')[0] ?? $this->default_background_color) .
+             '" />';
+        echo '</div>';
+    }
+
+    /**
+     * Handle admin POST requests.
+     *
+     * @return void
+     */
+    private function admin_post() : void {
+        if (isset($_POST['post_ID']) && isset($_POST['background-color'])) {
+            wp_update_post(array(
+                'ID' => $_POST['post_ID'],
+                'meta_input' => array(
+                    'background_color' => $_POST['background-color'],
+                ),
+            ));
+        }
     }
 }
