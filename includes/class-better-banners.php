@@ -28,6 +28,7 @@ final class Better_Banners
         }
 
         $this->wp_body_open();
+        $this->add_meta_boxes();
     }
 
     /**
@@ -159,5 +160,46 @@ final class Better_Banners
                 ),
             )
         );
+    }
+
+    /**
+     * Add add_meta_boxes action.
+     *
+     * @return void
+     */
+    private function add_meta_boxes() : void {
+        add_action(
+            'add_meta_boxes',
+            array(
+                $this,
+                'add_meta_box',
+            )
+        );
+    }
+
+    /**
+     * Add all meta boxes.
+     *
+     * @return void
+     */
+    public function add_meta_box() : void {
+        add_meta_box(
+            self::$custom_post_type_slug . '_meta_box',
+            'Settings',
+            [
+                $this,
+                'render_meta_box'
+            ],
+            self::$custom_post_type_slug
+        );
+    }
+
+    /**
+     * Add the custom post meta box.
+     *
+     * @return void
+     */
+    public function render_meta_box() : void {
+        // TODO: Add meta box content
     }
 }
