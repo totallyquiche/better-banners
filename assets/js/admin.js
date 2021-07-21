@@ -5,7 +5,7 @@
             border: false,
             width: 200,
             clear: function () {
-                $('#background-color').wpColorPicker('color', '#007bff');
+                $('#background-color').wpColorPicker('color', '#81d742');
             }
         });
 

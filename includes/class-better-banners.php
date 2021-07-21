@@ -16,7 +16,7 @@ final class Better_Banners
      *
      * @var string
      */
-    private string $default_background_color = '007bff';
+    private string $default_background_color = '81d742';
 
     /**
      * Run the plugin.
