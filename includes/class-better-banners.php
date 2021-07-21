@@ -88,9 +88,11 @@ final class Better_Banners
         foreach ( $posts as $post ) {
             $background_color = get_post_meta( $post->ID, 'background_color' )[0] ?? $this->default_background_color;
 
-            echo '<div class="better-banners-banner" style="background-color: #' . $background_color . '";>';
-            echo $post->post_content;
-            echo '</div>';
+            echo <<<HTML
+<div class="better-banners-banner" style="background-color: #{$background_color};">
+    {$post->post_content}
+</div>
+HTML;
         }
 
         echo '</div>';
