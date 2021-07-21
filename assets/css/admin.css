@@ -5,7 +5,7 @@
     display: none;
 }
 
-#background-color-container > span {
+#color-pickers-container > span {
     display: inline-block;
     line-height: 28px;
     vertical-align: middle;
