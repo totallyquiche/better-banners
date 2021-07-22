@@ -28,7 +28,7 @@
         });
 
         const initializeEditor = function () {
-            if (tinyMCE) {
+            if (typeof tinyMCE !== 'undefined') {
                 updateEditorBackgroundColor();
             }
         };
