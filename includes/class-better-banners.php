@@ -52,6 +52,8 @@ final class Better_Banners
                 'register_post_type',
             )
         );
+
+        // add_editor_style(plugin_dir_url(__FILE__) . '../assets/css/admin.css');
     }
 
     /**

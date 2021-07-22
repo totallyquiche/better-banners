@@ -1,4 +1,11 @@
 (($) => {
+    const updateEditorBackgroundColor = function () {
+        tinyMCE
+            .activeEditor
+            .dom
+            .addStyle('body{background-color:' + $('#background-color').val() + ' !important;}');
+    }
+
     $(document).on('ready', function () {
         $('#background-color').wpColorPicker({
             palettes: true,
@@ -6,6 +13,9 @@
             width: 200,
             clear: function () {
                 $('#background-color').wpColorPicker('color', '#81d742');
+            },
+            change: function (event) {
+                updateEditorBackgroundColor();
             }
         });
 
@@ -16,5 +26,15 @@
                 $(this).append('<input type="hidden" name="background-color" value="' + backgroundColor + '" />');
             }
         });
+
+        const initializeEditor = function () {
+            if (tinyMCE) {
+                updateEditorBackgroundColor();
+            }
+        };
+
+        setInterval(initializeEditor, 0)
+
+        clearInterval(initializeEditor);
     });
 })(jQuery);
