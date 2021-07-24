@@ -260,7 +260,7 @@ HTML;
 		echo <<<HTML
 <div id="color-picker-container">
 	<span>Background Color</span>
-	<br/>
+	<br />
 	<input id="background-color" class="color-picker" type="text" value="{$background_color}" />
 </div>
 HTML;
