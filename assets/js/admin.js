@@ -37,7 +37,7 @@
 
 		clearInterval(initializeEditor);
 
-		$("#wpbody-content").append(
+		$('#wpbody-content').append(
 			'Betters Banners was created with love by <a href="https://briandady.com" target="_BLANK">Brian Dady</a>.&#129505;'
 		);
 	});
