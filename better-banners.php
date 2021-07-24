@@ -17,6 +17,6 @@ namespace TotallyQuiche\BetterBanners;
  * Domain Path: /languages
  */
 
-require_once plugin_dir_path(__FILE__) . 'includes/class-better-banners.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-better-banners.php';
 
-(new Better_Banners)->run();
+( new Better_Banners )->run();
