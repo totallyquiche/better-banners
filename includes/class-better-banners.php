@@ -157,7 +157,7 @@ HTML;
 
 		wp_enqueue_style(
 			'better_banners_admin_css',
-			plugin_dir_url( __FILE_ ) . '../assets/css/admin.css'
+			plugin_dir_url( __FILE__ ) . '../assets/css/admin.css'
 		);
 	}
 
