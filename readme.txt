@@ -4,6 +4,7 @@ Tags: banner, site message, announcement, warning
 Donate link: https://www.paypal.com/donate?hosted_button_id=E32BJX9EWGVKG
 Requires at least: 4.9
 Tested up to: 5.6
+Stable Tag: 1.0.0
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
