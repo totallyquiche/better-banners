@@ -259,8 +259,8 @@ HTML;
 
 		echo <<<HTML
 <div id="color-picker-container">
-	<span>Background Color</span>
-	<br />
+	<label for="background-color">Background Color</label>
+
 	<input id="background-color" class="color-picker" type="text" value="#{$background_color}" />
 </div>
 HTML;
