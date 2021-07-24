@@ -2,12 +2,12 @@
 #edit-slug-box,
 .row-actions,
 #message a {
-    display: none;
+	display: none;
 }
 
 #color-picker-container > span {
-    display: inline-block;
-    line-height: 28px;
-    vertical-align: middle;
-    margin-top: 8px;
+	display: inline-block;
+	line-height: 28px;
+	vertical-align: middle;
+	margin-top: 8px;
 }

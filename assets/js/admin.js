@@ -1,44 +1,44 @@
 (($) => {
-    const updateEditorBackgroundColor = function () {
-        tinyMCE
-            .activeEditor
-            .dom
-            .addStyle('body{background-color:' + $('#background-color').val() + ' !important;}');
-    }
+	const updateEditorBackgroundColor = function () {
+		tinyMCE
+			.activeEditor
+			.dom
+			.addStyle('body{background-color:' + $('#background-color').val() + ' !important;}');
+	}
 
-    $(document).on('ready', function () {
-        $('#background-color').wpColorPicker({
-            palettes: true,
-            border: false,
-            width: 200,
-            clear: function () {
-                $('#background-color').wpColorPicker('color', '#81d742');
-            },
-            change: function (event) {
-                updateEditorBackgroundColor();
-            }
-        });
+	$(document).on('ready', function () {
+		$('#background-color').wpColorPicker({
+			palettes: true,
+			border: false,
+			width: 200,
+			clear: function () {
+				$('#background-color').wpColorPicker('color', '#81d742');
+			},
+			change: function (event) {
+				updateEditorBackgroundColor();
+			}
+		});
 
-        $('#post').on('submit', function (event) {
-            if (!$('#background-color').hasClass('iris-error')) {
-                const backgroundColor = $('#background-color').val().replace('#', '');
+		$('#post').on('submit', function (event) {
+			if (!$('#background-color').hasClass('iris-error')) {
+				const backgroundColor = $('#background-color').val().replace('#', '');
 
-                $(this).append('<input type="hidden" name="background-color" value="' + backgroundColor + '" />');
-            }
-        });
+				$(this).append('<input type="hidden" name="background-color" value="' + backgroundColor + '" />');
+			}
+		});
 
-        const initializeEditor = function () {
-            if (typeof tinyMCE !== 'undefined') {
-                updateEditorBackgroundColor();
-            }
-        };
+		const initializeEditor = function () {
+			if (typeof tinyMCE !== 'undefined') {
+				updateEditorBackgroundColor();
+			}
+		};
 
-        setInterval(initializeEditor, 0)
+		setInterval(initializeEditor, 0)
 
-        clearInterval(initializeEditor);
+		clearInterval(initializeEditor);
 
-        $("#wpbody-content").append(
-            'Betters Banners was created with love by <a href="https://briandady.com" target="_BLANK">Brian Dady</a>.&#129505;'
-        );
-    });
+		$("#wpbody-content").append(
+			'Betters Banners was created with love by <a href="https://briandady.com" target="_BLANK">Brian Dady</a>.&#129505;'
+		);
+	});
 })(jQuery);
