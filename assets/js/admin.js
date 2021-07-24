@@ -1,9 +1,10 @@
-(($) => {
+( ( $ ) => {
 	const updateEditorBackgroundColor = function () {
 		tinyMCE
 			.activeEditor
 			.dom
-			.addStyle('body{background-color:' + $('#background-color').val() + ' !important;}');
+			.addStyle('body{background-color:' + $('#background-color').val() +
+				' !important;}');
 	}
 
 	$(document).on('ready', function () {
@@ -20,10 +21,11 @@
 		});
 
 		$('#post').on('submit', function (event) {
-			if (!$('#background-color').hasClass('iris-error')) {
+			if (! $('#background-color').hasClass('iris-error')) {
 				const backgroundColor = $('#background-color').val().replace('#', '');
 
-				$(this).append('<input type="hidden" name="background-color" value="' + backgroundColor + '" />');
+				$(this).append('<input type="hidden" name="background-color" value="' +
+					backgroundColor + '" />');
 			}
 		});
 
@@ -38,7 +40,9 @@
 		clearInterval(initializeEditor);
 
 		$('#wpbody-content').append(
-			'Betters Banners was created with love by <a href="https://briandady.com" target="_BLANK">Brian Dady</a>.&#129505;'
+			'Betters Banners was created with love by ' +
+			'<a href="https://briandady.com" target="_BLANK">Brian Dady</a>' +
+			'.&#129505;'
 		);
 	});
-})(jQuery);
+} )( jQuery );
