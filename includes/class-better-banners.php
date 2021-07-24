@@ -236,14 +236,15 @@ HTML;
 	 * @return void
 	 */
 	public function add_meta_box() : void {
+		$custom_post_type_slug = self::$custom_post_type_slug;
 		add_meta_box(
-			self::$custom_post_type_slug . '_meta_box',
+			"{$custom_post_type_slug}_meta_box",
 			'Settings',
 			array(
 				$this,
 				'render_meta_box',
             ),
-			self::$custom_post_type_slug
+			$custom_post_type_slug
 		);
 	}
 
