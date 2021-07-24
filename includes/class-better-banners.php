@@ -77,7 +77,7 @@ final class Better_Banners
 	public function display_banners() : void {
 		$posts = get_posts(
 			array(
-				'post_type' => self::$custom_post_type_slug,
+				'post_type'   => self::$custom_post_type_slug,
 				'post_status' => 'publish',
 				'numberposts' => -1,
 			)
@@ -187,29 +187,29 @@ HTML;
 			self::$custom_post_type_slug,
 			array(
 				'description' => 'A Better Banners banner.',
-				'public' => true,
-				'menu_icon' => 'dashicons-megaphone',
-				'rewrite' => false,
-				'labels' => array(
-					'name' => 'Better Banners',
-					'singular_name' => 'Better Banner',
-					'add_new_item' => 'Add New Better Banner',
-					'edit_item' => 'Edit Better Banner',
-					'new_item' => 'New Better Banner',
-					'view_item' => 'View Better Banner',
-					'view_items' => 'View Better Banners',
-					'search_items' => 'Search Better Banners',
-					'not_found' => 'No Better Banners found',
-					'not_found_in_trash' => 'No Better Banners found in Trash',
-					'all_items' => 'All Better Banners',
-					'insert_into_item' => 'Insert into Better Banner',
+				'public'      => true,
+				'menu_icon'   => 'dashicons-megaphone',
+				'rewrite'     => false,
+				'labels'      => array(
+					'name'                  => 'Better Banners',
+					'singular_name'         => 'Better Banner',
+					'add_new_item'          => 'Add New Better Banner',
+					'edit_item'             => 'Edit Better Banner',
+					'new_item'              => 'New Better Banner',
+					'view_item'             => 'View Better Banner',
+					'view_items'            => 'View Better Banners',
+					'search_items'          => 'Search Better Banners',
+					'not_found'             => 'No Better Banners found',
+					'not_found_in_trash'    => 'No Better Banners found in Trash',
+					'all_items'             => 'All Better Banners',
+					'insert_into_item'      => 'Insert into Better Banner',
 					'uploaded_to_this_item' => 'Uploaded to this Better Banner',
-					'filter_items_list' => 'Filter Better Banners list',
+					'filter_items_list'      => 'Filter Better Banners list',
 					'items_list_navigation' => 'Better Banners list navigation',
-					'items_list' => 'Better Banners list',
-					'item_published' => 'Better Banner published',
-					'item_updated' => 'Better Banner updated',
-					'item_link' => 'Better Banner Link',
+					'items_list'            => 'Better Banners list',
+					'item_published'        => 'Better Banner published',
+					'item_updated'          => 'Better Banner updated',
+					'item_link'             => 'Better Banner Link',
 					'item_link_description' => 'A link to a Better Banner',
 				),
 			)
@@ -274,7 +274,7 @@ HTML;
 	private function admin_post() : void {
 		if (isset($_POST['post_ID']) && isset($_POST['background-color'])) {
 			wp_update_post(array(
-				'ID' => $_POST['post_ID'],
+				'ID'         => $_POST['post_ID'],
 				'meta_input' => array(
 					'background_color' => $_POST['background-color'],
 				),
