@@ -6,7 +6,6 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 require plugin_dir_path( __FILE__ ) . 'includes/class-better-banners.php';
 
-
 global $wpdb;
 
 $table_name = $wpdb->prefix . 'posts';
