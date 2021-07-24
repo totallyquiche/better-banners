@@ -271,7 +271,7 @@ HTML;
 	 * @return void
 	 */
 	private function admin_post() : void {
-		if (isset($_POST['post_ID']) && isset($_POST['background-color'])) {
+		if ( isset($_POST['post_ID']) && isset($_POST['background-color']) ) {
 			wp_update_post(array(
 				'ID'         => $_POST['post_ID'],
 				'meta_input' => array('background_color' => $_POST['background-color']),
