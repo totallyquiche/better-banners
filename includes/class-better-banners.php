@@ -261,7 +261,7 @@ HTML;
 <div id="color-picker-container">
 	<label for="background-color">Background Color</label>
 
-	<input id="background-color" class="color-picker" type="text" value="#{$background_color}" />
+	<input role="button" id="background-color" class="color-picker" type="text" value="#{$background_color}" />
 </div>
 HTML;
 	}
