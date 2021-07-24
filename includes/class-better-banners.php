@@ -28,7 +28,7 @@ final class Better_Banners {
 
 		if (
 			($post_type = $_GET['post_type']) === self::$custom_post_type_slug ||
-			get_post_type($_GET['post']) === self::$custom_post_type_slug
+			get_post_type( $_GET['post'] ) === self::$custom_post_type_slug
 		) {
 			$this->admin_enqueue_scripts();
 		}
@@ -85,7 +85,7 @@ final class Better_Banners {
 		echo '<div class="better-banners">';
 
 		foreach ( $posts as $post ) {
-			$background_color = esc_attr(get_post_meta( $post->ID, 'background_color' )[0] ?? $this->default_background_color);
+			$background_color = esc_attr( get_post_meta( $post->ID, 'background_color' )[0] ?? $this->default_background_color );
 
 			echo <<<HTML
 <div class="better-banners-banner" style="background-color: #{$background_color};">
@@ -120,7 +120,7 @@ HTML;
 	public function enqueue_styles() : void {
 		wp_enqueue_style(
 			'better_banners_styles',
-		   plugin_dir_url(__FILE__) . '../assets/css/public.css'
+		   plugin_dir_url( __FILE__ ) . '../assets/css/public.css'
 		);
 	}
 
@@ -153,11 +153,11 @@ HTML;
 	 * @return void
 	 */
 	public function enqueue_admin_styles() : void {
-		wp_enqueue_style('wp-color-picker');
+		wp_enqueue_style( 'wp-color-picker' );
 
 		wp_enqueue_style(
 			'better_banners_admin_css',
-			plugin_dir_url(__FILE__) . '../assets/css/admin.css'
+			plugin_dir_url( __FILE_ ) . '../assets/css/admin.css'
 		);
 	}
 
@@ -167,11 +167,11 @@ HTML;
 	 * @return void
 	 */
 	public function enqueue_admin_scripts() : void {
-		wp_enqueue_script( 'wp-color-picker');
+		wp_enqueue_script( 'wp-color-picker' );
 
 		wp_enqueue_script(
 			'better_banners_admin_js',
-			plugin_dir_url(__FILE__) . '../assets/js/admin.js',
+			plugin_dir_url( __FILE__ ) . '../assets/js/admin.js',
 			array('iris')
 		);
 	}
@@ -253,14 +253,14 @@ HTML;
 	 * @return void
 	 */
 	public function render_meta_box() : void {
-		$post_meta_input = get_post_meta(get_the_ID());
-		$background_color = esc_attr('#' . ($post_meta_input['background_color'][0] ?? $this->default_background_color));
+		$post_meta_input = get_post_meta( get_the_ID() );
+		$background_color = esc_attr( ( $post_meta_input['background_color'][0] ?? $this->default_background_color ) );
 
 		echo <<<HTML
 <div id="color-picker-container">
 	<span>Background Color</span>
 	<br />
-	<input id="background-color" class="color-picker" type="text" value="{$background_color}" />
+	<input id="background-color" class="color-picker" type="text" value="#{$background_color}" />
 </div>
 HTML;
 	}
@@ -271,11 +271,13 @@ HTML;
 	 * @return void
 	 */
 	private function admin_post() : void {
-		if ( isset($_POST['post_ID']) && isset($_POST['background-color']) ) {
-			wp_update_post(array(
-				'ID'         => $_POST['post_ID'],
-				'meta_input' => array('background_color' => $_POST['background-color']),
-			));
+		if ( isset( $_POST['post_ID'] ) && isset( $_POST['background-color'] ) ) {
+			wp_update_post(
+				array(
+					'ID'         => $_POST['post_ID'],
+					'meta_input' => array('background_color' => $_POST['background-color']),
+				)
+			);
 		}
 	}
 }
