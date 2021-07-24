@@ -1,7 +1,8 @@
 #minor-publishing,
 #edit-slug-box,
 .row-actions,
-#message a {
+#message a,
+#wp-admin-bar-view {
 	display: none;
 }
 
