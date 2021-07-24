@@ -108,7 +108,7 @@ HTML;
 			'wp_enqueue_scripts',
 			array(
 				$this,
-				'enqueue_styles'
+				'enqueue_styles',
 			)
 		);
 	}
@@ -242,7 +242,7 @@ HTML;
 			'Settings',
 			array(
 				$this,
-				'render_meta_box'
+				'render_meta_box',
             ),
 			self::$custom_post_type_slug
 		);
@@ -275,9 +275,7 @@ HTML;
 		if (isset($_POST['post_ID']) && isset($_POST['background-color'])) {
 			wp_update_post(array(
 				'ID'         => $_POST['post_ID'],
-				'meta_input' => array(
-					'background_color' => $_POST['background-color'],
-				),
+				'meta_input' => array('background_color' => $_POST['background-color']),
 			));
 		}
 	}
