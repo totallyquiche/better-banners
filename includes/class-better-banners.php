@@ -88,8 +88,8 @@ final class Better_Banners {
 			$background_color = esc_attr( get_post_meta( $post->ID, 'background_color' )[0] ?? $this->default_background_color );
 
 			echo <<<HTML
-<div class="better-banners-banner" style="background-color: #{$background_color};">
-	{$post->post_content}
+<div class="better-banners-banner" style="background-color: #{$background_color};" role="banner">
+	<span>{$post->post_content}</span>
 </div>
 HTML;
 		}
