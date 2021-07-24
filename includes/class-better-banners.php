@@ -2,8 +2,7 @@
 
 namespace TotallyQuiche\BetterBanners;
 
-final class Better_Banners
-{
+final class Better_Banners {
 	/**
 	 * The custom post type slug.
 	 *
