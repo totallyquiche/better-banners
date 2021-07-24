@@ -86,7 +86,7 @@ final class Better_Banners
 		echo '<div class="better-banners">';
 
 		foreach ( $posts as $post ) {
-			$background_color = get_post_meta( $post->ID, 'background_color' )[0] ?? $this->default_background_color;
+			$background_color = esc_attr(get_post_meta( $post->ID, 'background_color' )[0] ?? $this->default_background_color);
 
 			echo <<<HTML
 <div class="better-banners-banner" style="background-color: #{$background_color};">
@@ -255,7 +255,7 @@ HTML;
 	 */
 	public function render_meta_box() : void {
 		$post_meta_input = get_post_meta(get_the_ID());
-		$background_color = '#' . ($post_meta_input['background_color'][0] ?? $this->default_background_color);
+		$background_color = esc_attr('#' . ($post_meta_input['background_color'][0] ?? $this->default_background_color));
 
 		echo <<<HTML
 <div id="color-picker-container">
