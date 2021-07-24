@@ -240,10 +240,10 @@ HTML;
 		add_meta_box(
 			self::$custom_post_type_slug . '_meta_box',
 			'Settings',
-			[
+			array(
 				$this,
 				'render_meta_box'
-			],
+            ),
 			self::$custom_post_type_slug
 		);
 	}
