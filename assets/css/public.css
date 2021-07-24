@@ -1,5 +1,5 @@
 .better-banners-banner {
-	font-size: 1rem;
-	border-bottom: 1px solid lightslategray;
 	padding: 1rem 0.5rem;
+	border-bottom: 1px solid lightslategray;
+	font-size: 1rem;
 }
