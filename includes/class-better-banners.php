@@ -31,19 +31,12 @@ final class Better_Banners {
 			get_post_type( $_GET['post'] ) === self::$custom_post_type_slug
 		) {
 			$this->admin_enqueue_scripts();
+            $this->in_admin_footer();
 		}
 
 		$this->wp_body_open();
 		$this->add_meta_boxes();
 		$this->admin_post();
-
-		add_action(
-			'in_admin_footer',
-			array(
-				$this,
-				'render_admin_footer'
-			)
-		);
 	}
 
 	/**
@@ -54,8 +47,10 @@ final class Better_Banners {
 	public function render_admin_footer() : void {
 		$message = '<span>' .
 			'Betters Banners was created with love by ' .
-			'<a href="https://briandady.com" target="_BLANK">Brian Dady</a>' .
-			'.&#129505;' .
+			'<a href="https://briandady.com" target="_BLANK">Brian Dady</a>. ' .
+            'Want even better banners? Check out ' .
+            '<a href="https://better-banners-pro.briandady.com" target="_BLANK">Better Banners Pro</a>! ' .
+			'&#129505;' .
 			'</span>' .
 			'<hr />';
 
@@ -314,4 +309,19 @@ HTML;
 			);
 		}
 	}
+
+    /**
+     * Adds in_admin_footer action.
+     *
+     * @return void
+     */
+    private function in_admin_footer() : void {
+        add_action(
+            'in_admin_footer',
+            array(
+                $this,
+                'render_admin_footer'
+            )
+        );
+    }
 }
