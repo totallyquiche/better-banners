@@ -82,6 +82,11 @@ final class Better_Banners {
 			)
 		);
 
+        $posts = apply_filters(
+            'better_banners_display_banners_posts',
+            $posts
+        );
+
 		echo '<div class="better-banners">';
 
 		foreach ( $posts as $post ) {
@@ -264,6 +269,8 @@ HTML;
 	<input role="button" id="background-color" class="color-picker" type="text" value="#{$background_color}" />
 </div>
 HTML;
+
+        do_action('better_banners_after_render_meta_box');
 	}
 
 	/**
