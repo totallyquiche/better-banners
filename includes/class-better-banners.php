@@ -15,7 +15,7 @@ final class Better_Banners {
 	 *
 	 * @var string
 	 */
-	private string $default_background_color = '81d742';
+	private string $default_background_color = '#007bff';
 
 	/**
 	 * Run the plugin.
@@ -93,7 +93,7 @@ final class Better_Banners {
 			$background_color = esc_attr( get_post_meta( $post->ID, 'background_color' )[0] ?? $this->default_background_color );
 
 			echo <<<HTML
-<div class="better-banners-banner" style="background-color: #{$background_color};" role="banner">
+<div class="better-banners-banner" style="background-color: {$background_color};" role="banner">
 	<span>{$post->post_content}</span>
 </div>
 HTML;
@@ -208,7 +208,7 @@ HTML;
 					'all_items'             => 'All Better Banners',
 					'insert_into_item'      => 'Insert into Better Banner',
 					'uploaded_to_this_item' => 'Uploaded to this Better Banner',
-					'filter_items_list'      => 'Filter Better Banners list',
+					'filter_items_list'     => 'Filter Better Banners list',
 					'items_list_navigation' => 'Better Banners list navigation',
 					'items_list'            => 'Better Banners list',
 					'item_published'        => 'Better Banner published',
@@ -248,7 +248,7 @@ HTML;
 			array(
 				$this,
 				'render_meta_box',
-            ),
+			),
 			$custom_post_type_slug
 		);
 	}
@@ -266,7 +266,7 @@ HTML;
 <div id="color-picker-container">
 	<label for="background-color">Background Color</label>
 
-	<input role="button" id="background-color" class="color-picker" type="text" value="#{$background_color}" />
+	<input role="button" id="background-color" class="color-picker" type="text" value="{$background_color}" />
 </div>
 HTML;
 
@@ -282,8 +282,10 @@ HTML;
 		if ( isset( $_POST['post_ID'] ) && isset( $_POST['background-color'] ) ) {
 			wp_update_post(
 				array(
-					'ID'         => $_POST['post_ID'],
-					'meta_input' => array('background_color' => $_POST['background-color']),
+					'ID'         => intval( $_POST['post_ID'] ),
+					'meta_input' => array(
+						'background_color' => esc_attr( $_POST['background-color'] ),
+					),
 				)
 			);
 		}

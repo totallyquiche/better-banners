@@ -22,10 +22,8 @@
 
 		$('#post').on('submit', function (event) {
 			if (! $('#background-color').hasClass('iris-error')) {
-				const backgroundColor = $('#background-color').val().replace('#', '');
-
 				$(this).append('<input type="hidden" name="background-color" value="' +
-					backgroundColor + '" />');
+                    $('#background-color').val() + '" />');
 			}
 		});
 
