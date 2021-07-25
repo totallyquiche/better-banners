@@ -277,7 +277,7 @@ HTML;
 				array(
 					'ID'         => intval( $_POST['post_ID'] ),
 					'meta_input' => array(
-						'background_color' => esc_attr( $_POST['background-color'] ),
+						'background_color' => sanitize_hex_color( $_POST['background-color'] ),
 					),
 				)
 			);
