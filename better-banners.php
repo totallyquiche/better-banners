@@ -9,7 +9,7 @@ namespace TotallyQuiche\BetterBanners;
  * Version: 1.0.0
  * Requires at least: 4
  * Requires PHP: 7.4
- * Author: Brian N. Dady <bndady@gmail.com>
+ * Author: Brian Dady <bndady@gmail.com>
  * Author URI: https://briandady.com
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
