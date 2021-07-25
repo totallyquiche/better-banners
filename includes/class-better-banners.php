@@ -36,6 +36,30 @@ final class Better_Banners {
 		$this->wp_body_open();
 		$this->add_meta_boxes();
 		$this->admin_post();
+
+		add_action(
+			'in_admin_footer',
+			array(
+				$this,
+				'render_admin_footer'
+			)
+		);
+	}
+
+	/**
+	 * Render the admin footer content.
+	 *
+	 * @return void
+	 */
+	public function render_admin_footer() : void {
+		$message = '<span>' .
+			'Betters Banners was created with love by ' .
+			'<a href="https://briandady.com" target="_BLANK">Brian Dady</a>' .
+			'.&#129505;' .
+			'</span>' .
+			'<hr />';
+
+		echo apply_filters( 'render_admin_footer_message', $message );
 	}
 
 	/**
@@ -82,10 +106,10 @@ final class Better_Banners {
 			)
 		);
 
-        $posts = apply_filters(
-            'better_banners_display_banners_posts',
-            $posts
-        );
+		$posts = apply_filters(
+			'better_banners_display_banners_posts',
+			$posts
+		);
 
 		echo '<div class="better-banners">';
 
@@ -270,7 +294,7 @@ HTML;
 </div>
 HTML;
 
-        do_action('better_banners_after_render_meta_box');
+		do_action('better_banners_after_render_meta_box');
 	}
 
 	/**
