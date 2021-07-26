@@ -1,21 +1,30 @@
-<?php declare(strict_types=1);
+<?php declare( strict_types = 1 );
 
 namespace TotallyQuiche\BetterBanners;
 
 final class Better_Banners {
 	/**
-	 * The custom post type slug.
+	 * The universal prefix for this plugin.
 	 *
 	 * @var string
 	 */
-	public static string $custom_post_type_slug = 'better_banners_post';
+	public static string $plugin_prefix = 'tqbb';
 
 	/**
-	 * The default background color for the banners.
+	 * The default background color for banners.
 	 *
 	 * @var string
 	 */
-	private string $default_background_color = '#007bff';
+	public static string $default_banner_background_color = '#007bff';
+
+	/**
+	 * Returns the slug for the banner post type.
+	 *
+	 * @return string
+	 */
+	public static function getBannerPostTypeSlug() : string {
+		return self::$plugin_prefix . '_banner';
+	}
 
 	/**
 	 * Run the plugin.
@@ -23,181 +32,99 @@ final class Better_Banners {
 	 * @return void
 	 */
 	public function run() : void {
-		$this->init();
-		$this->wp_enqueue_scripts();
-
-		if (
-			($post_type = $_GET['post_type']) === self::$custom_post_type_slug ||
-			get_post_type( $_GET['post'] ) === self::$custom_post_type_slug
-		) {
-			$this->admin_enqueue_scripts();
-            $this->in_admin_footer();
-		}
-
-		$this->wp_body_open();
-		$this->add_meta_boxes();
-		$this->admin_post();
-	}
-
-	/**
-	 * Render the admin footer content.
-	 *
-	 * @return void
-	 */
-	public function render_admin_footer() : void {
-		$message = '<span>' .
-			'Betters Banners was created with love by ' .
-			'<a href="https://briandady.com" target="_BLANK">Brian Dady</a>. ' .
-            'Want even better banners? Check out ' .
-            '<a href="https://better-banners-pro.briandady.com" target="_BLANK">Better Banners Pro</a>! ' .
-			'&#129505;' .
-			'</span>' .
-			'<hr />';
-
-		echo apply_filters( 'render_admin_footer_message', $message );
-	}
-
-	/**
-	 * Add init actions.
-	 *
-	 * @return void
-	 */
-	private function init() : void {
-		add_action(
+		$actions = array(
 			'init',
-			array(
-				$this,
-				'register_post_type',
-			)
-		);
-	}
-
-	/**
-	 * Add wp_body_open actions.
-	 *
-	 * @return void
-	 */
-	private function wp_body_open() : void {
-		add_action(
 			'wp_body_open',
-			array(
-				$this,
-				'display_banners',
-			)
-		);
-	}
-
-	/**
-	 * Display the banners.
-	 *
-	 * @return void
-	 */
-	public function display_banners() : void {
-		$posts = get_posts(
-			array(
-				'post_type'   => self::$custom_post_type_slug,
-				'post_status' => 'publish',
-				'numberposts' => -1,
-			)
-		);
-
-		$posts = apply_filters(
-			'better_banners_display_banners_posts',
-			$posts
-		);
-
-		echo '<div class="better-banners">';
-
-		foreach ( $posts as $post ) {
-			$background_color = esc_attr( get_post_meta( $post->ID, 'background_color' )[0] ?? $this->default_background_color );
-
-			echo <<<HTML
-<div class="better-banners-banner" style="background-color: {$background_color};" role="banner">
-	<span>{$post->post_content}</span>
-</div>
-HTML;
-		}
-
-		echo '</div>';
-	}
-
-	/**
-	 * Add the wp_enqueue_scripts actions.
-	 *
-	 * @return void
-	 */
-	private function wp_enqueue_scripts() : void {
-		add_action(
 			'wp_enqueue_scripts',
-			array(
-				$this,
-				'enqueue_styles',
-			)
-		);
-	}
-
-	/**
-	 * Enqueue the styles.
-	 *
-	 * @return void
-	 */
-	public function enqueue_styles() : void {
-		wp_enqueue_style(
-			'better_banners_styles',
-		   plugin_dir_url( __FILE__ ) . '../assets/css/public.css'
-		);
-	}
-
-	/**
-	 * Enqueue admin scripts/styles.
-	 *
-	 * @return void
-	 */
-	private function admin_enqueue_scripts() : void {
-		add_action(
 			'admin_enqueue_scripts',
-			array(
-				$this,
-				'enqueue_admin_styles',
-			)
+			'add_meta_boxes',
+			'in_admin_footer',
 		);
 
-		add_action(
-			'admin_enqueue_scripts',
-			array(
-				$this,
-				'enqueue_admin_scripts',
-			)
-		);
+		foreach ( $actions as $action ) {
+			add_action(
+				$action,
+				array(
+					$this,
+					$action
+				)
+			);
+		}
 	}
 
 	/**
-	 * Enqueue admin styles.
+	 * Returns a boolean indicating whether the current page is a banner post page.
 	 *
-	 * @return void
+	 * @return bool
 	 */
-	public function enqueue_admin_styles() : void {
-		wp_enqueue_style( 'wp-color-picker' );
-
-		wp_enqueue_style(
-			'better_banners_admin_css',
-			plugin_dir_url( __FILE__ ) . '../assets/css/admin.css'
-		);
+	private function isCurrentPageBannerPage() : bool {
+		return $_GET['post_type'] === self::getBannerPostTypeSlug() ||
+			get_post_type( $_GET['post'] ) === self::getBannerPostTypeSlug();
 	}
 
 	/**
-	 * Enqueue admin scripts.
+	 * Handle the init action.
 	 *
 	 * @return void
 	 */
-	public function enqueue_admin_scripts() : void {
-		wp_enqueue_script( 'wp-color-picker' );
+	public function init() : void {
+		$this->register_post_type();
 
-		wp_enqueue_script(
-			'better_banners_admin_js',
-			plugin_dir_url( __FILE__ ) . '../assets/js/admin.js',
-			array('iris')
-		);
+		if ( $this->isCurrentPageBannerPage() ) {
+			$this->admin_post();
+		}
+	}
+
+	/**
+	 * Handle the wp_body_open action.
+	 *
+	 * @return void
+	 */
+	public function wp_body_open() : void {
+		$this->display_banners();
+	}
+
+	/**
+	 * Handle the wp_enqueue_scripts action.
+	 *
+	 * @return void
+	 */
+	public function wp_enqueue_scripts() : void {
+		$this->enqueue_styles();
+	}
+
+	/**
+	 * Handle the admin_enqueue_scripts action.
+	 *
+	 * @return void
+	 */
+	public function admin_enqueue_scripts() : void {
+		if ( $this->isCurrentPageBannerPage() ) {
+			$this->enqueue_admin_styles();
+			$this->enqueue_admin_scripts();
+		}
+	}
+
+	/**
+	 * Handle the add_meta_boxes action.
+	 *
+	 * @return void
+	 */
+	public function add_meta_boxes() : void {
+		if ( $this->isCurrentPageBannerPage() ) {
+			$this->add_meta_box();
+		}
+	}
+
+	/**
+	 * Handle the in_admin_footer action.
+	 *
+	 * @return void
+	 */
+	public function in_admin_footer() : void {
+		if ( $this->isCurrentPageBannerPage() ) {
+			$this->render_admin_footer();
+		}
 	}
 
 	/**
@@ -205,9 +132,9 @@ HTML;
 	 *
 	 * @return void
 	 */
-	public function register_post_type() : void {
+	private function register_post_type() : void {
 		register_post_type(
-			self::$custom_post_type_slug,
+			self::getBannerPostTypeSlug(),
 			array(
 				'description' => 'A Better Banners banner.',
 				'public'      => true,
@@ -240,54 +167,60 @@ HTML;
 	}
 
 	/**
-	 * Add add_meta_boxes action.
+	 * Render the admin footer content.
 	 *
 	 * @return void
 	 */
-	private function add_meta_boxes() : void {
-		add_action(
-			'add_meta_boxes',
+	private function render_admin_footer() : void {
+		$message = <<<HTML
+<span>
+	Betters Banners was created with love by <a href="https://briandady.com" target="_BLANK">Brian Dady</a>.
+	Want even better banners? Check out <a href="https://better-banners-pro.briandady.com" target="_BLANK">Better Banners Pro</a>!
+	&#129505;
+</span>
+
+<hr />
+HTML;
+
+		echo apply_filters( 'render_admin_footer_message', $message );
+	}
+
+	/**
+	 * Display the banners.
+	 *
+	 * @return void
+	 */
+	private function display_banners() : void {
+		$posts = get_posts(
 			array(
-				$this,
-				'add_meta_box',
+				'post_type'   => self::getBannerPostTypeSlug(),
+				'post_status' => 'publish',
+				'numberposts' => -1,
 			)
 		);
-	}
 
-	/**
-	 * Add all meta boxes.
-	 *
-	 * @return void
-	 */
-	public function add_meta_box() : void {
-		$custom_post_type_slug = self::$custom_post_type_slug;
-		add_meta_box(
-			"{$custom_post_type_slug}_meta_box",
-			'Settings',
-			array(
-				$this,
-				'render_meta_box',
-			),
-			$custom_post_type_slug
+		$plugin_prefix = self::$plugin_prefix;
+
+		$posts = apply_filters(
+			'better_banners_display_banners_posts',
+			$posts
 		);
-	}
 
-	/**
-	 * Render the Settings meta box on the custom post type page.
-	 *
-	 * @return void
-	 */
-	public function render_meta_box() : void {
-		$post_meta_input = get_post_meta( get_the_ID() );
-		$background_color = esc_attr( ( $post_meta_input['background_color'][0] ?? $this->default_background_color ) );
+		echo '<div class="' . $plugin_prefix . '-banners-container">';
 
-		echo <<<HTML
-<div id="color-picker-container">
-	<label for="background-color">Background Color</label>
+		foreach ( $posts as $post ) {
+			$background_color = esc_attr(
+				get_post_meta( $post->ID, 'background_color' )[0] ?? self::$default_banner_background_color
+			);
 
-	<input role="button" id="background-color" class="color-picker" type="text" value="{$background_color}" />
+			echo <<<HTML
+<div class="{$plugin_prefix}-banner" style="background-color: {$background_color};" role="banner">
+	<span>{$post->post_content}</span>
 </div>
 HTML;
+		}
+
+		echo '</div>';
 	}
 
 	/**
@@ -308,18 +241,83 @@ HTML;
 		}
 	}
 
-    /**
-     * Adds in_admin_footer action.
-     *
-     * @return void
-     */
-    private function in_admin_footer() : void {
-        add_action(
-            'in_admin_footer',
-            array(
-                $this,
-                'render_admin_footer'
-            )
-        );
-    }
+	/**
+	 * Render the Settings meta box on the custom post type page.
+	 *
+	 * @return void
+	 */
+	public function render_meta_box() : void {
+		$post_meta_input = get_post_meta( get_the_ID() );
+		$background_color = esc_attr(
+			get_post_meta( $post->ID, 'background_color' )[0] ?? self::$default_banner_background_color
+		);
+
+		echo <<<HTML
+<div id="color-picker-container">
+	<label for="background-color">Background Color</label>
+
+	<input role="button" id="background-color" class="color-picker" type="text" value="{$background_color}" />
+</div>
+HTML;
+	}
+
+	/**
+	 * Add all meta boxes.
+	 *
+	 * @return void
+	 */
+	private function add_meta_box() : void {
+		$custom_post_type_slug = self::getBannerPostTypeSlug();
+
+		add_meta_box(
+			"{$custom_post_type_slug}_meta_box",
+			'Settings',
+			array(
+				$this,
+				'render_meta_box',
+			),
+			$custom_post_type_slug
+		);
+	}
+
+	/**
+	 * Enqueue the admin scripts.
+	 *
+	 * @return void
+	 */
+	private function enqueue_admin_scripts() : void {
+		wp_enqueue_script( 'wp-color-picker' );
+
+		wp_enqueue_script(
+			'better_banners_admin_js',
+			plugin_dir_url( __FILE__ ) . '../assets/js/admin.js',
+			array('iris')
+		);
+	}
+
+	/**
+	 * Enqueue the public styles.
+	 *
+	 * @return void
+	 */
+	private function enqueue_styles() : void {
+		wp_enqueue_style(
+			'better_banners_styles',
+		   plugin_dir_url( __FILE__ ) . '../assets/css/public.css'
+		);
+	}
+
+	/**
+	 * Enqueue the admin styles.
+	 *
+	 * @return void
+	 */
+	private function enqueue_admin_styles() : void {
+		wp_enqueue_style( 'wp-color-picker' );
+
+		wp_enqueue_style(
+			'better_banners_admin_css',
+			plugin_dir_url( __FILE__ ) . '../assets/css/admin.css'
+		);
+	}
 }
