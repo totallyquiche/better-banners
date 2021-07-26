@@ -8,7 +8,7 @@ final class Better_Banners {
 	 *
 	 * @var string
 	 */
-	public static string $plugin_prefix = 'tqbb';
+	public static string $plugin_prefix = 'tqbb01';
 
 	/**
 	 * The default background color for banners.
