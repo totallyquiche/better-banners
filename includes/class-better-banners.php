@@ -282,7 +282,7 @@ HTML;
 
 			$html .= <<<HTML
 <div class="{$plugin_prefix}-banner" style="background-color: {$background_color};" role="banner">
-	<span>{$post->post_content}</span>
+	{$post->post_content}
 </div>
 HTML;
 		}
