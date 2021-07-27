@@ -175,7 +175,6 @@ final class Better_Banners {
 		$message = <<<HTML
 <span>
 	Betters Banners was created with love by <a href="https://briandady.com" target="_BLANK">Brian Dady</a>.
-	Want even better banners? Check out <a href="https://better-banners-pro.briandady.com" target="_BLANK">Better Banners Pro</a>!
 	&#129505;
 </span>
 
