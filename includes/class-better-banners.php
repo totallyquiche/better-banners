@@ -174,7 +174,7 @@ final class Better_Banners {
 	private function render_admin_footer() : void {
 		$message = <<<HTML
 <span>
-	Betters Banners was created with love by <a href="https://briandady.com" target="_BLANK">Brian Dady</a>.
+	Betters Banners was created with love by <a href="https://briandady.com" target="_BLANK" title="Brian Dady's website">Brian Dady</a>.
 	&#129505;
 </span>
 
