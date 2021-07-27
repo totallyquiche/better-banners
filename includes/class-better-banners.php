@@ -39,6 +39,7 @@ final class Better_Banners {
 			'admin_enqueue_scripts',
 			'add_meta_boxes',
 			'in_admin_footer',
+			'admin_menu'
 		);
 
 		foreach ( $actions as $action ) {
@@ -68,6 +69,7 @@ final class Better_Banners {
 	 * @return void
 	 */
 	public function init() : void {
+		$this->add_options();
 		$this->register_post_type();
 
 		if ( $this->isCurrentPageBannerPage() ) {
@@ -81,7 +83,9 @@ final class Better_Banners {
 	 * @return void
 	 */
 	public function wp_body_open() : void {
-		$this->display_banners();
+		if ( ! get_option( self::$plugin_prefix . '_display_banners_using_javascript', true ) ) {
+			$this->display_banners();
+		}
 	}
 
 	/**
@@ -91,6 +95,7 @@ final class Better_Banners {
 	 */
 	public function wp_enqueue_scripts() : void {
 		$this->enqueue_styles();
+		$this->enqueue_scripts();
 	}
 
 	/**
@@ -124,6 +129,60 @@ final class Better_Banners {
 	public function in_admin_footer() : void {
 		if ( $this->isCurrentPageBannerPage() ) {
 			$this->render_admin_footer();
+		}
+	}
+
+	/**
+	 * Handle the admin_menu action.
+	 *
+	 * @return void
+	 */
+	public function admin_menu() : void {
+        add_submenu_page(
+            'edit.php?post_type=' . self::getBannerPostTypeSlug(),
+            'Better Banners Options',
+            'Options',
+            'manage_options',
+            self::$plugin_prefix . '_options',
+            function () {
+				$checked = get_option( self::$plugin_prefix . '_display_banners_using_javascript' ) ? 'checked="checked"' : '';
+				$checkbox_name = self::$plugin_prefix . '_display_banners_using_javascript';
+				$submit_button_name = self::$plugin_prefix . '_options_form_submit_button';
+
+				echo <<<HTML
+<h1>Better Banners</h1>
+<hr />
+<h2>Options</h2>
+<form method="post" action="{$_SERVER['REQUEST_URI']}">
+	<label for="{$checkbox_name}">Display banners using JavaScript</label>
+	<input type="checkbox" name="{$checkbox_name}" {$checked} />
+	<button type="submit" name="{$submit_button_name}" />Save</button>
+</form>
+<br />
+<span>
+	<i>
+		Some plugins or themes may prevent Better Banners from displaying properly.
+		If your banners are not showing up, try toggling this option.
+	</i>
+</span>
+HTML;
+			}
+        );
+	}
+
+	/**
+	 * Add all options.
+	 *
+	 * @return void
+	 */
+	private function add_options() : void {
+		$option_name = self::$plugin_prefix . '_display_banners_using_javascript';
+
+		if ( get_option( $option_name ) === false ) {
+			add_option(
+				$option_name,
+				true
+			);
 		}
 	}
 
@@ -185,11 +244,11 @@ HTML;
 	}
 
 	/**
-	 * Display the banners.
+	 * Return the banners HTML.
 	 *
-	 * @return void
+	 * @return string
 	 */
-	private function display_banners() : void {
+	private function get_banners_html() : string {
 		$posts = get_posts(
 			array(
 				'post_type'   => self::getBannerPostTypeSlug(),
@@ -205,21 +264,32 @@ HTML;
 			$posts
 		);
 
-		echo '<div class="' . $plugin_prefix . '-banners-container">';
+		$html = '<div class="' . $plugin_prefix . '-banners-container">';
 
 		foreach ( $posts as $post ) {
 			$background_color = esc_attr(
 				get_post_meta( $post->ID, 'background_color' )[0] ?? self::$default_banner_background_color
 			);
 
-			echo <<<HTML
+			$html .= <<<HTML
 <div class="{$plugin_prefix}-banner" style="background-color: {$background_color};" role="banner">
 	<span>{$post->post_content}</span>
 </div>
 HTML;
 		}
 
-		echo '</div>';
+		$html .= '</div>';
+
+		return $html;
+	}
+
+	/**
+	 * Display the banners via wp_body_open.
+	 *
+	 * @return void
+	 */
+	private function display_banners() : void {
+		echo $this->get_banners_html();
 	}
 
 	/**
@@ -236,6 +306,21 @@ HTML;
 						'background_color' => sanitize_hex_color( $_POST['background-color'] ),
 					),
 				)
+			);
+		}
+
+		if (
+			isset( $_POST[self::$plugin_prefix . '_options_form_submit_button'] ) &&
+			isset( $_POST[self::$plugin_prefix . '_display_banners_using_javascript'] )
+		) {
+			update_option(
+				self::$plugin_prefix . '_display_banners_using_javascript',
+				true
+			);
+		} elseif ( isset( $_POST[self::$plugin_prefix . '_options_form_submit_button'] ) ) {
+			update_option(
+				self::$plugin_prefix . '_display_banners_using_javascript',
+				false
 			);
 		}
 	}
@@ -289,7 +374,10 @@ HTML;
 		wp_enqueue_script(
 			'better_banners_admin_js',
 			plugin_dir_url( __FILE__ ) . '../assets/js/admin.js',
-			array('iris')
+			array(
+				'jquery',
+				'iris',
+			)
 		);
 	}
 
@@ -301,7 +389,29 @@ HTML;
 	private function enqueue_styles() : void {
 		wp_enqueue_style(
 			'better_banners_styles',
-		   plugin_dir_url( __FILE__ ) . '../assets/css/public.css'
+			plugin_dir_url( __FILE__ ) . '../assets/css/public.css'
+		);
+	}
+
+	/**
+	 * Enqueue the public scripts.
+	 *
+	 * @return void
+	 */
+	private function enqueue_scripts() : void {
+		wp_enqueue_script(
+			'better_banners_js',
+			plugin_dir_url( __FILE__ ) . '../assets/js/public.js',
+			array( 'jquery' )
+		);
+
+		wp_localize_script(
+			'better_banners_js',
+			'localizations',
+			array(
+				'displayBannersUsingJavaScript' => get_option( self::$plugin_prefix . '_display_banners_using_javascript', true ),
+				'bannersHtml' => $this->get_banners_html(),
+			)
 		);
 	}
 

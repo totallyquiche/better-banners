@@ -1,5 +1,5 @@
 .tqbb01-banner {
-	padding: 1rem 0.5rem;
-	border-bottom: 1px solid lightslategray;
-	font-size: 1rem;
+    position: relative;
+    z-index: 99999;
+    width: 100%;
 }
