@@ -203,17 +203,28 @@ HTML;
 		}
 
 		if (
-			isset( $_POST[self::$plugin_prefix . '_options_form_submit_button'] ) &&
-			isset( $_POST[self::getDisplayBannersUsingJavaScriptOptionSlug()] )
+			isset( $_POST[ self::$plugin_prefix . '_options_form_submit_button' ] ) &&
+			isset( $_POST[ self::getDisplayBannersUsingJavaScriptOptionSlug() ] )
 		) {
 			update_option(
 				self::getDisplayBannersUsingJavaScriptOptionSlug(),
 				true
 			);
-		} elseif ( isset( $_POST[self::$plugin_prefix . '_options_form_submit_button'] ) ) {
+		} elseif ( isset( $_POST[ self::$plugin_prefix . '_options_form_submit_button' ] ) ) {
 			update_option(
 				self::getDisplayBannersUsingJavaScriptOptionSlug(),
 				false
+			);
+		}
+
+		if ( isset( $_POST['post_ID'] ) && isset( $_POST[ self::$plugin_prefix . '-custom-css' ] ) ) {
+			wp_update_post(
+				array(
+					'ID'         => intval( $_POST['post_ID'] ),
+					'meta_input' => array(
+						self::$plugin_prefix . '_custom_css' => esc_html( $_POST[ self::$plugin_prefix . '-custom-css' ] ),
+					),
+				)
 			);
 		}
 	}
@@ -353,6 +364,10 @@ HTML;
 			get_post_meta( $post_id, $plugin_prefix . '_background_color' )[0] ?? self::$default_banner_background_color
 		);
 
+		$custom_css = esc_html (
+			get_post_meta( $post_id, $plugin_prefix . '_custom_css' )[0]
+		);
+
 		echo <<<HTML
 <div id="{$plugin_prefix}-color-picker-container">
 	<label for="{$plugin_prefix}-background-color">Background Color</label>
@@ -362,7 +377,7 @@ HTML;
 <div id="{$plugin_prefix}-custom-css-container">
 	<label for="{$plugin_prefix}-custom-css">Custom CSS</label>
 	<br />
-	<textarea id="{$plugin_prefix}-custom-css" form="post"></textarea>
+	<textarea rows="5" id="{$plugin_prefix}-custom-css" name="{$plugin_prefix}-custom-css" form="post">{$custom_css}</textarea>
 </div>
 HTML;
 	}
