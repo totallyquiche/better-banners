@@ -3,7 +3,7 @@
 		tinyMCE
 			.activeEditor
 			.dom
-			.addStyle('body { background-color:' + $('#background-color').val() +
+			.addStyle('body { background-color:' + $('#tqbb01-background-color').val() +
 				' !important; }')
 
 		tinyMCE
@@ -13,12 +13,12 @@
 	}
 
 	$(document).on('ready', function () {
-		$('#background-color').wpColorPicker({
+		$('#tqbb01-background-color').wpColorPicker({
 			palettes: true,
 			border: false,
 			width: 200,
 			clear: function () {
-				$('#background-color').wpColorPicker('color', '#007bff');
+				$('#tqbb01-background-color').wpColorPicker('color', '#007bff');
 			},
 			change: function (event) {
 				updateEditorBackgroundColor();
@@ -26,9 +26,9 @@
 		});
 
 		$('#post').on('submit', function (event) {
-			if (! $('#background-color').hasClass('iris-error')) {
-				$(this).append('<input type="hidden" name="background-color" value="' +
-					$('#background-color').val() + '" />');
+			if (! $('#tqbb01-background-color').hasClass('iris-error')) {
+				$(this).append('<input type="hidden" name="tqbb01-background-color" value="' +
+					$('#tqbb01-background-color').val() + '" />');
 			}
 		});
 

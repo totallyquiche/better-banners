@@ -126,7 +126,7 @@ final class Better_Banners {
 	 */
 	public function add_meta_boxes() : void {
 		if ( $this->isCurrentPageBannerPage() ) {
-			$this->add_meta_box();
+			$this->add_settings_meta_box();
 		}
 	}
 
@@ -154,6 +154,7 @@ final class Better_Banners {
             'manage_options',
             self::$plugin_prefix . '_options',
             function () {
+				$plugin_prefix = self::$plugin_prefix;
 				$checked = get_option( self::getDisplayBannersUsingJavaScriptOptionSlug() ) ? 'checked="checked"' : '';
 				$checkbox_name = self::getDisplayBannersUsingJavaScriptOptionSlug();
 				$submit_button_name = self::$plugin_prefix . '_options_form_submit_button';
@@ -162,7 +163,7 @@ final class Better_Banners {
 <h1>Better Banners</h1>
 <hr />
 <h2>Options</h2>
-<form method="post" action="{$_SERVER['REQUEST_URI']}">
+<form method="post" action="{$_SERVER['REQUEST_URI']}" id="{$plugin_prefix}-options-form">
 	<label for="{$checkbox_name}">Display banners using JavaScript</label>
 	<input type="checkbox" name="{$checkbox_name}" {$checked} />
 	<button type="submit" name="{$submit_button_name}" />Save</button>
@@ -277,7 +278,7 @@ HTML;
 
 		foreach ( $posts as $post ) {
 			$background_color = esc_attr(
-				get_post_meta( $post->ID, 'background_color' )[0] ?? self::$default_banner_background_color
+				get_post_meta( $post->ID, self::$plugin_prefix . '_background_color' )[0] ?? self::$default_banner_background_color
 			);
 
 			$html .= <<<HTML
@@ -307,12 +308,12 @@ HTML;
 	 * @return void
 	 */
 	private function admin_post() : void {
-		if ( isset( $_POST['post_ID'] ) && isset( $_POST['background-color'] ) ) {
+		if ( isset( $_POST['post_ID'] ) && isset( $_POST[self::$plugin_prefix . '-background-color'] ) ) {
 			wp_update_post(
 				array(
 					'ID'         => intval( $_POST['post_ID'] ),
 					'meta_input' => array(
-						'background_color' => sanitize_hex_color( $_POST['background-color'] ),
+						self::$plugin_prefix . '_background_color' => sanitize_hex_color( $_POST[self::$plugin_prefix . '-background-color'] ),
 					),
 				)
 			);
@@ -339,26 +340,33 @@ HTML;
 	 *
 	 * @return void
 	 */
-	public function render_meta_box() : void {
-		$post_meta_input = get_post_meta( get_the_ID() );
+	public function render_settings_meta_box() : void {
+        $plugin_prefix = self::$plugin_prefix;
+
 		$background_color = esc_attr(
-			get_post_meta( $post->ID, 'background_color' )[0] ?? self::$default_banner_background_color
+			get_post_meta( $post->ID, self::$plugin_prefix . '_background_color' )[0] ?? self::$default_banner_background_color
 		);
 
 		echo <<<HTML
-<div id="color-picker-container">
-	<label for="background-color">Background Color</label>
-	<input role="button" id="background-color" class="color-picker" type="text" value="{$background_color}" />
+<div id="{$plugin_prefix}-color-picker-container">
+	<label for="{$plugin_prefix}-background-color">Background Color</label>
+	<input role="button" id="{$plugin_prefix}-background-color" class="{$plugin_prefix}-color-picker" type="text" value="{$background_color}" />
+</div>
+<br />
+<div id="{$plugin_prefix}-custom-css-container">
+	<label for="{$plugin_prefix}-custom-css">Custom CSS</label>
+	<br />
+	<textarea id="{$plugin_prefix}-custom-css" form="post"></textarea>
 </div>
 HTML;
 	}
 
 	/**
-	 * Add all meta boxes.
+	 * Add the Settings meta boxes.
 	 *
 	 * @return void
 	 */
-	private function add_meta_box() : void {
+	private function add_settings_meta_box() : void {
 		$custom_post_type_slug = self::getBannerPostTypeSlug();
 
 		add_meta_box(
@@ -366,7 +374,7 @@ HTML;
 			'Settings',
 			array(
 				$this,
-				'render_meta_box',
+				'render_settings_meta_box',
 			),
 			$custom_post_type_slug
 		);

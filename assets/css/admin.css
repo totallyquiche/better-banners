@@ -6,7 +6,11 @@
 	display: none;
 }
 
-#color-picker-container > label {
+#tqbb01-color-picker-container > label {
 	display: inline-block;
 	margin-top: 8px;
+}
+
+#tqbb01-custom-css {
+    width: 100%;
 }
