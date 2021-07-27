@@ -12,3 +12,5 @@ $table_name = $wpdb->prefix . 'posts';
 $post_type = \TotallyQuiche\BetterBanners\Better_Banners::getBannerPostTypeSlug();
 
 $wpdb->query( "DELETE FROM `$table_name` WHERE `post_type` = \"$post_type\";" );
+
+// TODO: Delete post meta

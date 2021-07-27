@@ -48,7 +48,8 @@ final class Better_Banners {
 			'admin_enqueue_scripts',
 			'add_meta_boxes',
 			'in_admin_footer',
-			'admin_menu'
+			'admin_menu',
+			'admin_post',
 		);
 
 		foreach ( $actions as $action ) {
@@ -68,8 +69,15 @@ final class Better_Banners {
 	 * @return bool
 	 */
 	private function isCurrentPageBannerPage() : bool {
-		return $_GET['post_type'] === self::getBannerPostTypeSlug() ||
-			get_post_type( $_GET['post'] ) === self::getBannerPostTypeSlug();
+		static $is_current_page_banner_page;
+
+		if ( ! isset( $is_current_page_banner_page ) ) {
+
+			$is_current_page_banner_page = $_GET['post_type'] === self::getBannerPostTypeSlug() ||
+				get_post_type( $_GET['post'] ) === self::getBannerPostTypeSlug();
+		}
+
+		return $is_current_page_banner_page;
 	}
 
 	/**
@@ -80,10 +88,7 @@ final class Better_Banners {
 	public function init() : void {
 		$this->add_options();
 		$this->register_post_type();
-
-		if ( $this->isCurrentPageBannerPage() ) {
-			$this->admin_post();
-		}
+		$this->handle_post();
 	}
 
 	/**
@@ -178,6 +183,39 @@ final class Better_Banners {
 HTML;
 			}
         );
+	}
+
+	/**
+	 * Handle form posts.
+	 *
+	 * @return void
+	 */
+	private function handle_post() : void {
+		if ( isset( $_POST['post_ID'] ) && isset( $_POST[self::$plugin_prefix . '-background-color'] ) ) {
+			wp_update_post(
+				array(
+					'ID'         => intval( $_POST['post_ID'] ),
+					'meta_input' => array(
+						self::$plugin_prefix . '_background_color' => sanitize_hex_color( $_POST[self::$plugin_prefix . '-background-color'] ),
+					),
+				)
+			);
+		}
+
+		if (
+			isset( $_POST[self::$plugin_prefix . '_options_form_submit_button'] ) &&
+			isset( $_POST[self::getDisplayBannersUsingJavaScriptOptionSlug()] )
+		) {
+			update_option(
+				self::getDisplayBannersUsingJavaScriptOptionSlug(),
+				true
+			);
+		} elseif ( isset( $_POST[self::$plugin_prefix . '_options_form_submit_button'] ) ) {
+			update_option(
+				self::getDisplayBannersUsingJavaScriptOptionSlug(),
+				false
+			);
+		}
 	}
 
 	/**
@@ -303,48 +341,16 @@ HTML;
 	}
 
 	/**
-	 * Handle admin POST requests.
-	 *
-	 * @return void
-	 */
-	private function admin_post() : void {
-		if ( isset( $_POST['post_ID'] ) && isset( $_POST[self::$plugin_prefix . '-background-color'] ) ) {
-			wp_update_post(
-				array(
-					'ID'         => intval( $_POST['post_ID'] ),
-					'meta_input' => array(
-						self::$plugin_prefix . '_background_color' => sanitize_hex_color( $_POST[self::$plugin_prefix . '-background-color'] ),
-					),
-				)
-			);
-		}
-
-		if (
-			isset( $_POST[self::$plugin_prefix . '_options_form_submit_button'] ) &&
-			isset( $_POST[self::getDisplayBannersUsingJavaScriptOptionSlug()] )
-		) {
-			update_option(
-				self::getDisplayBannersUsingJavaScriptOptionSlug(),
-				true
-			);
-		} elseif ( isset( $_POST[self::$plugin_prefix . '_options_form_submit_button'] ) ) {
-			update_option(
-				self::getDisplayBannersUsingJavaScriptOptionSlug(),
-				false
-			);
-		}
-	}
-
-	/**
 	 * Render the Settings meta box on the custom post type page.
 	 *
 	 * @return void
 	 */
 	public function render_settings_meta_box() : void {
+		$post_id = get_post()->ID;
         $plugin_prefix = self::$plugin_prefix;
 
 		$background_color = esc_attr(
-			get_post_meta( $post->ID, self::$plugin_prefix . '_background_color' )[0] ?? self::$default_banner_background_color
+			get_post_meta( $post_id, $plugin_prefix . '_background_color' )[0] ?? self::$default_banner_background_color
 		);
 
 		echo <<<HTML
