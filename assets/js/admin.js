@@ -3,8 +3,13 @@
 		tinyMCE
 			.activeEditor
 			.dom
-			.addStyle('body{background-color:' + $('#background-color').val() +
-				' !important;}');
+			.addStyle('body { background-color:' + $('#background-color').val() +
+				' !important; }')
+
+		tinyMCE
+			.activeEditor
+			.dom
+			.addStyle('p { margin: 0 !important; }');
 	}
 
 	$(document).on('ready', function () {
