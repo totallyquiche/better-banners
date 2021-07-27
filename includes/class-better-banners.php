@@ -27,6 +27,15 @@ final class Better_Banners {
 	}
 
 	/**
+	 * Returns the slug for the option to display banners using JavaScript.
+	 *
+	 * @return string
+	 */
+	public static function getDisplayBannersUsingJavaScriptOptionSlug() : string {
+        return self::$plugin_prefix . '_display_banners_using_javascript';
+	}
+
+	/**
 	 * Run the plugin.
 	 *
 	 * @return void
@@ -83,7 +92,7 @@ final class Better_Banners {
 	 * @return void
 	 */
 	public function wp_body_open() : void {
-		if ( ! get_option( self::$plugin_prefix . '_display_banners_using_javascript', true ) ) {
+		if ( ! get_option( self::getDisplayBannersUsingJavaScriptOptionSlug(), true ) ) {
 			$this->display_banners();
 		}
 	}
@@ -145,8 +154,8 @@ final class Better_Banners {
             'manage_options',
             self::$plugin_prefix . '_options',
             function () {
-				$checked = get_option( self::$plugin_prefix . '_display_banners_using_javascript' ) ? 'checked="checked"' : '';
-				$checkbox_name = self::$plugin_prefix . '_display_banners_using_javascript';
+				$checked = get_option( self::getDisplayBannersUsingJavaScriptOptionSlug() ) ? 'checked="checked"' : '';
+				$checkbox_name = self::getDisplayBannersUsingJavaScriptOptionSlug();
 				$submit_button_name = self::$plugin_prefix . '_options_form_submit_button';
 
 				echo <<<HTML
@@ -176,7 +185,7 @@ HTML;
 	 * @return void
 	 */
 	private function add_options() : void {
-		$option_name = self::$plugin_prefix . '_display_banners_using_javascript';
+		$option_name = self::getDisplayBannersUsingJavaScriptOptionSlug();
 
 		if ( get_option( $option_name ) === false ) {
 			add_option(
@@ -311,15 +320,15 @@ HTML;
 
 		if (
 			isset( $_POST[self::$plugin_prefix . '_options_form_submit_button'] ) &&
-			isset( $_POST[self::$plugin_prefix . '_display_banners_using_javascript'] )
+			isset( $_POST[self::getDisplayBannersUsingJavaScriptOptionSlug()] )
 		) {
 			update_option(
-				self::$plugin_prefix . '_display_banners_using_javascript',
+				self::getDisplayBannersUsingJavaScriptOptionSlug(),
 				true
 			);
 		} elseif ( isset( $_POST[self::$plugin_prefix . '_options_form_submit_button'] ) ) {
 			update_option(
-				self::$plugin_prefix . '_display_banners_using_javascript',
+				self::getDisplayBannersUsingJavaScriptOptionSlug(),
 				false
 			);
 		}
@@ -409,7 +418,7 @@ HTML;
 			'better_banners_js',
 			'localizations',
 			array(
-				'displayBannersUsingJavaScript' => get_option( self::$plugin_prefix . '_display_banners_using_javascript', true ),
+				'displayBannersUsingJavaScript' => get_option( self::getDisplayBannersUsingJavaScriptOptionSlug(), true ),
 				'bannersHtml' => $this->get_banners_html(),
 			)
 		);
