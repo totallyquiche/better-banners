@@ -7,7 +7,7 @@ namespace TotallyQuiche\BetterBanners;
  * Plugin URI: https://better-banners.briandady.com
  * Description: Create and customize banners to display at the top of your website.
  * Version: 1.0.0
- * Requires at least: 4
+ * Requires at least: 5.8
  * Requires PHP: 7.4
  * Author: Brian Dady <bndady@gmail.com>
  * Author URI: https://briandady.com
