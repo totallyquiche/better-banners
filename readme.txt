@@ -25,12 +25,31 @@ Better Banners can be installed like any other plugin: https://wordpress.org/sup
 
 No extra setup steps needed -- just install the plugin and start creating Better Banners!
 
+== Frequently Asked Questions ==
+
+= Why aren't my banners showing up? =
+
+Some plugins or themes may prevent Better Banners from displaying properly. If your banners are not showing up, try toggling the "Display banners using JavaScript" option.
+
+= What level of support is available for Better Banners? =
+
+Please reach out via the Support tab. I will do my best to respond to questions, issues, etc. in a timely manner.
+
+
+== Screenshots ==
+
+1. This screenshot shows a plain-text banner created using Better Banners
+2. This screenshot shows a banner with text and an image created using Better Banners.
+3. This image shows the banner post admin page.
+
 == Changelog ==
 
 = 1.0.0 =
+
 * Initial release!
 
 == Upgrade Notice ==
 
 = 1.0.0 =
+
 This initial release adds Better Banners to your WordPress site.
