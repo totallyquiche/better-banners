@@ -194,15 +194,15 @@ final class Better_Banners {
 	<br />
 	<textarea cols="40" rows="5" id="{$plugin_prefix}-custom-inline-css-all-banners" name="{$textarea_name}" form="{$plugin_prefix}-options-form">{$custom_inline_css_all_banners}</textarea>
 	<br /><br />
+	<label for="{$plugin_prefix}-custom-inline-css-all-banners-example"><b>Example</b></label>
+	<br />
+	<textarea cols="40" rows="5" id="{$plugin_prefix}-custom-inline-css-all-banners-example" disabled="disabled">color: red;\ntext-align: center;\nfont-weight: 700;</textarea>
+	<br /><br />
 	<span>
 		<i>
 			CSS declarations entered above will be applied to all banners.
 		</i>
 	</span>
-	<br /><br />
-	<label for="{$plugin_prefix}-custom-inline-css-all-banners-example"><b>Example</b></label>
-	<br />
-	<textarea cols="40" rows="5" id="{$plugin_prefix}-custom-inline-css-all-banners-example" disabled="disabled">color: red;\ntext-align: center;\nfont-weight: 700;</textarea>
 	<br /><br />
 	<button type="submit" name="{$submit_button_name}" />Save</button>
 </form>
