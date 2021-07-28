@@ -15,7 +15,7 @@ final class Better_Banners {
 	 *
 	 * @var string
 	 */
-	public static string $default_banner_background_color = '#007bff';
+	public static string $default_banner_background_color = '#00c9c2';
 
 	/**
 	 * Returns the slug for the banner post type.
