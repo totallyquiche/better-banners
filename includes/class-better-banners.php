@@ -36,6 +36,15 @@ final class Better_Banners {
 	}
 
 	/**
+	 * Returns the slug for the option to add inline CSS for all banners.
+	 *
+	 * @return string
+	 */
+	public static function getCustomInlineCssAllBannersOptionSlug() : string {
+		return self::$plugin_prefix . '_custom_inline_css_all_banners';
+	}
+
+	/**
 	 * Run the plugin.
 	 *
 	 * @return void
@@ -162,24 +171,41 @@ final class Better_Banners {
 				$plugin_prefix = self::$plugin_prefix;
 				$checked = get_option( self::getDisplayBannersUsingJavaScriptOptionSlug() ) ? 'checked="checked"' : '';
 				$checkbox_name = self::getDisplayBannersUsingJavaScriptOptionSlug();
+				$textarea_name = self::getCustomInlineCssAllBannersOptionSlug();
 				$submit_button_name = self::$plugin_prefix . '_options_form_submit_button';
+				$custom_inline_css_all_banners = get_option( self::getCustomInlineCssAllBannersOptionSlug() );
 
 				echo <<<HTML
 <h1>Better Banners</h1>
 <hr />
 <h2>Options</h2>
 <form method="post" action="{$_SERVER['REQUEST_URI']}" id="{$plugin_prefix}-options-form">
-	<label for="{$checkbox_name}">Display banners using JavaScript</label>
+	<label for="{$checkbox_name}"><b>Display banners using JavaScript</b></label>
 	<input type="checkbox" name="{$checkbox_name}" {$checked} />
+	<br /><br />
+	<span>
+		<i>
+			Some plugins or themes may prevent Better Banners from displaying properly.
+			If your banners are not showing up, try toggling this option.
+		</i>
+	</span>
+	<br /><br />
+	<label for="{$textarea_name}"><b>Custom Inline CSS</b></label>
+	<br />
+	<textarea cols="40" rows="5" id="{$plugin_prefix}-custom-inline-css-all-banners" name="{$textarea_name}" form="{$plugin_prefix}-options-form">{$custom_inline_css_all_banners}</textarea>
+	<br /><br />
+	<span>
+		<i>
+			CSS declarations entered above will be applied to all banners.
+		</i>
+	</span>
+	<br /><br />
+	<label for="{$plugin_prefix}-custom-inline-css-all-banners-example"><b>Example</b></label>
+	<br />
+	<textarea cols="40" rows="5" id="{$plugin_prefix}-custom-inline-css-all-banners-example" disabled="disabled">color: red;\ntext-align: center;\nfont-weight: 700;</textarea>
+	<br /><br />
 	<button type="submit" name="{$submit_button_name}" />Save</button>
 </form>
-<br />
-<span>
-	<i>
-		Some plugins or themes may prevent Better Banners from displaying properly.
-		If your banners are not showing up, try toggling this option.
-	</i>
-</span>
 HTML;
 			}
         );
@@ -217,6 +243,19 @@ HTML;
 			);
 		}
 
+		if (
+			isset( $_POST[ self::$plugin_prefix . '_options_form_submit_button' ] ) &&
+			isset( $_POST[ self::getCustomInlineCssAllBannersOptionSlug() ] )
+		) {
+			update_option(
+				self::getCustomInlineCssAllBannersOptionSlug(),
+				sanitize_option(
+					self::getCustomInlineCssAllBannersOptionSlug(),
+					$_POST[ self::getCustomInlineCssAllBannersOptionSlug() ]
+				)
+			);
+		}
+
 		if ( isset( $_POST['post_ID'] ) && isset( $_POST[ self::$plugin_prefix . '-custom-inline-css' ] ) ) {
 			wp_update_post(
 				array(
@@ -241,6 +280,14 @@ HTML;
 			add_option(
 				$option_name,
 				true
+			);
+		}
+
+		$option_name = self::getCustomInlineCssAllBannersOptionSlug();
+
+		if ( get_option( $option_name ) === false ) {
+			add_option(
+				$option_name
 			);
 		}
 	}
@@ -337,10 +384,28 @@ HTML;
 			$custom_inline_css_properties = explode(PHP_EOL, $custom_inline_css);
 
 			foreach ($custom_inline_css_properties as &$custom_inline_css_property) {
-				$custom_inline_css_property = rtrim(trim($custom_inline_css_property), ';') . ' !important;';
+				$custom_inline_css_property = rtrim(trim($custom_inline_css_property), ';');
+
+				if ( $custom_inline_css_property ) {
+					$custom_inline_css_property = rtrim(trim($custom_inline_css_property), ';') . ' !important;';
+				}
 			}
 
-			$style = 'background-color: ' . $background_color . ' !important;' . implode('', $custom_inline_css_properties);
+			$custom_inline_css_all_banners = esc_attr(
+				get_option( self::getCustomInlineCssAllBannersOptionSlug() )
+			);
+
+			$custom_inline_css_all_banners_properties = explode(PHP_EOL, $custom_inline_css_all_banners);
+
+			foreach ($custom_inline_css_all_banners_properties as &$custom_inline_css_all_banners_property) {
+				$custom_inline_css_all_banners_property = rtrim(trim($custom_inline_css_all_banners_property), ';');
+
+				if ( $custom_inline_css_all_banners_property ) {
+					$custom_inline_css_all_banners_property = rtrim(trim($custom_inline_css_all_banners_property), ';') . ' !important;';
+				}
+			}
+
+			$style = 'background-color: ' . $background_color . ' !important;' . implode('', $custom_inline_css_properties) . implode('', $custom_inline_css_all_banners_properties);
 
 			$html .= <<<HTML
 <div class="{$plugin_prefix}-banner" style="{$style}" role="banner">
