@@ -17,6 +17,7 @@ final class Uninstaller {
     public function uninstall() : void {
         $this->delete_posts();
         $this->delete_posts_meta();
+        $this->delete_options();
     }
 
     /**
