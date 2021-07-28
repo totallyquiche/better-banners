@@ -1,18 +1,58 @@
 <?php declare(strict_types=1);
 
+namespace TotallyQuiche\BetterBanners;
+
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit();
 }
 
-require plugin_dir_path( __FILE__ ) . 'includes/class-better-banners.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-better-banners.php';
 
-global $wpdb;
+final class Uninstaller {
+    /**
+     * Handle plugin uninstallation.
+     *
+     * @return void
+     */
+    public function uninstall() : void {
+        $this->delete_posts();
+        $this->delete_posts_meta();
+    }
 
-$post_table_name = $wpdb->prefix . 'posts';
-$post_type = \TotallyQuiche\BetterBanners\Better_Banners::getBannerPostTypeSlug();
+    /**
+     * Delete all Better Banners posts.
+     *
+     * @return void
+     */
+    private function delete_posts() : void {
+        global $wpdb;
 
-$wpdb->query( "DELETE FROM `$post_table_name` WHERE `post_type` = \"$post_type\";" );
+        $table_name = $wpdb->prefix . 'posts';
+        $post_type = \TotallyQuiche\BetterBanners\Better_Banners::getBannerPostTypeSlug();
 
-$post_meta_table_name = $wpdb->prefix . 'postmeta';
+        $wpdb->query( "DELETE FROM `$table_name` WHERE `post_type` = \"$post_type\";" );
+    }
 
-$wpdb->query( "DELETE FROM `$post_meta_table_name` WHERE `meta_key` = \"tqbb01_background_color\";" );
+    /**
+     * Delete all Better Banners post meta data.
+     *
+     * @return void
+     */
+    private function delete_posts_meta() : void {
+        global $wpdb;
+
+        $table_name = $wpdb->prefix . 'postmeta';
+        $plugin_prefix = \TotallyQuiche\BetterBanners\Better_Banners::$plugin_prefix;
+
+        $meta_keys = array(
+            $plugin_prefix . '_background_color',
+            $plugin_prefix . '_custom_inline_css',
+        );
+
+        foreach ( $meta_keys as $meta_key ) {
+            $wpdb->query( "DELETE FROM `$table_name` WHERE `meta_key` = \"$meta_key\";" );
+        }
+    }
+}
+
+(new Uninstaller)->uninstall();
