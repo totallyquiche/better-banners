@@ -21,6 +21,29 @@ final class Uninstaller {
     }
 
     /**
+     * Delete all Better Banners post previews.
+     *
+     * @return void
+     */
+    private function delete_previews() : void {
+        global $wpdb;
+
+        $table_name = $wpdb->prefix . 'posts';
+        $post_type = \TotallyQuiche\BetterBanners\Better_Banners::getBannerPostTypeSlug();
+
+        $sql = <<<SQL
+DELETE FROM `{$table_name}`
+WHERE `post_parent` IN
+(
+    SELECT `ID` FROM `{$table_name}`
+    WHERE `post_type` = "{$post_type}"
+);
+SQL;
+
+        $wpdb->query( $sql );
+    }
+
+    /**
      * Delete all Better Banners posts.
      *
      * @return void
