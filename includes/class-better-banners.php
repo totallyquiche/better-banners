@@ -404,7 +404,7 @@ HTML;
 
 		add_meta_box(
 			"{$custom_post_type_slug}_meta_box",
-			'Better Banner Settings',
+			'Better Banners Settings',
 			array(
 				$this,
 				'render_settings_meta_box',
