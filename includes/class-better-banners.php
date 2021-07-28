@@ -217,12 +217,12 @@ HTML;
 			);
 		}
 
-		if ( isset( $_POST['post_ID'] ) && isset( $_POST[ self::$plugin_prefix . '-custom-css' ] ) ) {
+		if ( isset( $_POST['post_ID'] ) && isset( $_POST[ self::$plugin_prefix . '-custom-inline-css' ] ) ) {
 			wp_update_post(
 				array(
 					'ID'         => intval( $_POST['post_ID'] ),
 					'meta_input' => array(
-						self::$plugin_prefix . '_custom_css' => esc_html( $_POST[ self::$plugin_prefix . '-custom-css' ] ),
+						self::$plugin_prefix . '_custom_inline_css' => esc_html( $_POST[ self::$plugin_prefix . '-custom-inline-css' ] ),
 					),
 				)
 			);
@@ -330,8 +330,20 @@ HTML;
 				get_post_meta( $post->ID, self::$plugin_prefix . '_background_color' )[0] ?? self::$default_banner_background_color
 			);
 
+			$custom_inline_css = esc_attr(
+				get_post_meta( $post->ID, self::$plugin_prefix . '_custom_inline_css' )[0]
+			);
+
+			$custom_inline_css_properties = explode(PHP_EOL, $custom_inline_css);
+
+			foreach ($custom_inline_css_properties as &$custom_inline_css_property) {
+				$custom_inline_css_property = rtrim(trim($custom_inline_css_property), ';') . ' !important;';
+			}
+
+			$style = 'background-color: ' . $background_color . ' !important;' . implode('', $custom_inline_css_properties);
+
 			$html .= <<<HTML
-<div class="{$plugin_prefix}-banner" style="background-color: {$background_color};" role="banner">
+<div class="{$plugin_prefix}-banner" style="{$style}" role="banner">
 	{$post->post_content}
 </div>
 HTML;
@@ -364,8 +376,8 @@ HTML;
 			get_post_meta( $post_id, $plugin_prefix . '_background_color' )[0] ?? self::$default_banner_background_color
 		);
 
-		$custom_css = esc_html (
-			get_post_meta( $post_id, $plugin_prefix . '_custom_css' )[0]
+		$custom_inline_css = esc_html (
+			get_post_meta( $post_id, $plugin_prefix . '_custom_inline_css' )[0]
 		);
 
 		echo <<<HTML
@@ -374,10 +386,10 @@ HTML;
 	<input role="button" id="{$plugin_prefix}-background-color" class="{$plugin_prefix}-color-picker" type="text" value="{$background_color}" />
 </div>
 <br />
-<div id="{$plugin_prefix}-custom-css-container">
-	<label for="{$plugin_prefix}-custom-css">Custom CSS</label>
+<div id="{$plugin_prefix}-custom-inline-css-container">
+	<label for="{$plugin_prefix}-custom-inline-css">Custom Inline CSS</label>
 	<br />
-	<textarea rows="5" id="{$plugin_prefix}-custom-css" name="{$plugin_prefix}-custom-css" form="post">{$custom_css}</textarea>
+	<textarea rows="5" id="{$plugin_prefix}-custom-inline-css" name="{$plugin_prefix}-custom-inline-css" form="post">{$custom_inline_css}</textarea>
 </div>
 HTML;
 	}
