@@ -53,6 +53,22 @@ final class Uninstaller {
             $wpdb->query( "DELETE FROM `$table_name` WHERE `meta_key` = \"$meta_key\";" );
         }
     }
+
+    /**
+     * Delete all Better Banners options.
+     *
+     * @return void
+     */
+    private function delete_options() : void {
+        $option_names = array(
+            \TotallyQuiche\BetterBanners\Better_Banners::getDisplayBannersUsingJavaScriptOptionSlug(),
+            \TotallyQuiche\BetterBanners\Better_Banners::getCustomInlineCssAllBannersOptionSlug(),
+        );
+
+        foreach ( $option_names as $option_name ) {
+            delete_option( $option_name );
+        }
+    }
 }
 
 (new Uninstaller)->uninstall();
