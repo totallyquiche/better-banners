@@ -1,11 +1,3 @@
-#minor-publishing,
-#edit-slug-box,
-.row-actions,
-#message a,
-#wp-admin-bar-view {
-	display: none;
-}
-
 #tqbb01-color-picker-container > label {
 	display: inline-block;
 	margin-top: 8px;

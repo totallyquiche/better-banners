@@ -26,14 +26,10 @@
 		});
 
 		$('#publish').on('click', function ( event ) {
-            event.preventDefault();
-
 			if (! $('#tqbb01-background-color').hasClass('iris-error')) {
 				$(this).append('<input type="hidden" name="tqbb01-background-color" value="' +
 					$('#tqbb01-background-color').val() + '" />');
 			}
-
-            $('#post').submit();
 		});
 
 		const initializeEditor = function () {
