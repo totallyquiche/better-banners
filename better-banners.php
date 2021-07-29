@@ -26,4 +26,4 @@ spl_autoload_register(
     )
 );
 
-( new \TotallyQuiche\BetterBanners\Better_Banners )->run();
+( new Better_Banners )->run();
