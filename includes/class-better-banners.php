@@ -32,7 +32,7 @@ final class Better_Banners {
 	 * @return string
 	 */
 	public static function get_display_banners_using_javascript_option_slug() : string {
-        return self::$plugin_prefix . '_display_banners_using_javascript';
+		return self::$plugin_prefix . '_display_banners_using_javascript';
 	}
 
 	/**
@@ -81,7 +81,6 @@ final class Better_Banners {
 		static $is_current_page_banner_page;
 
 		if ( ! isset( $is_current_page_banner_page ) ) {
-
 			$is_current_page_banner_page = $_GET['post_type'] === self::get_banner_post_type_slug() ||
 				get_post_type( $_GET['post'] ) === self::get_banner_post_type_slug();
 		}
@@ -161,13 +160,13 @@ final class Better_Banners {
 	 * @return void
 	 */
 	public function admin_menu() : void {
-        add_submenu_page(
-            'edit.php?post_type=' . self::get_banner_post_type_slug(),
-            'Better Banners Options',
-            'Options',
-            'manage_options',
-            self::$plugin_prefix . '_options',
-            function () {
+		add_submenu_page(
+			'edit.php?post_type=' . self::get_banner_post_type_slug(),
+			'Better Banners Options',
+			'Options',
+			'manage_options',
+			self::$plugin_prefix . '_options',
+			function () {
 				$plugin_prefix = self::$plugin_prefix;
 				$checked = get_option( self::get_display_banners_using_javascript_option_slug() ) ? 'checked="checked"' : '';
 				$checkbox_name = self::get_display_banners_using_javascript_option_slug();
@@ -208,7 +207,7 @@ final class Better_Banners {
 </form>
 HTML;
 			}
-        );
+		);
 	}
 
 	/**
@@ -435,7 +434,7 @@ HTML;
 	 */
 	public function render_settings_meta_box() : void {
 		$post_id = get_post()->ID;
-        $plugin_prefix = self::$plugin_prefix;
+		$plugin_prefix = self::$plugin_prefix;
 
 		$background_color = esc_attr(
 			get_post_meta( $post_id, $plugin_prefix . '_background_color' )[0] ?? self::$default_banner_background_color
