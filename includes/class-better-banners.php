@@ -523,8 +523,10 @@ HTML;
 			'better_banners_js',
 			'localizations',
 			array(
-				'displayBannersUsingJavaScript' => get_option( self::get_display_banners_using_javascript_option_slug(), true ),
-				'bannersHtml' => $this->get_banners_html(),
+				'displayBannersUsingJavaScript' =>
+					get_option( self::get_display_banners_using_javascript_option_slug(), true ),
+				'bannersHtml' =>
+					$this->get_banners_html(),
 			)
 		);
 	}
