@@ -50,6 +50,16 @@ final class Better_Banners {
 	 * @return void
 	 */
 	public function run() : void {
+        $this->add_actions();
+	}
+
+
+    /**
+     * Add all actions.
+     *
+     * @return void
+     */
+    private function add_actions() : void {
         add_action(
             'init',
             array(
@@ -105,7 +115,7 @@ final class Better_Banners {
                 'handle'
             )
         );
-	}
+    }
 
 	/**
 	 * Returns a boolean indicating whether the current page is a banner post page.
