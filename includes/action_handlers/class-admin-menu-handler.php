@@ -47,7 +47,7 @@ final class Admin_Menu_Handler implements Action_Handler {
 	<br /><br />
 	<label for="{$plugin_prefix}-custom-inline-css-all-banners-example"><b>Example</b></label>
 	<br />
-	<textarea cols="40" rows="5" id="{$plugin_prefix}-custom-inline-css-all-banners-example" disabled="disabled">color: red;\ntext-align: center;\nfont-weight: 700;</textarea>
+	<textarea cols="40" rows="5" id="{$plugin_prefix}-custom-inline-css-all-banners-example" disabled="disabled">border: 1px solid black;\nfont-style: italic;\nfont-weight: 700;</textarea>
 	<br /><br />
 	<span>
 		<i>
