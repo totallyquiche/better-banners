@@ -17,6 +17,13 @@ namespace TotallyQuiche\BetterBanners;
  * Domain Path: /languages
  */
 
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-better-banners.php';
+require_once plugin_dir_path( __FILE__ ) . 'class-autoloader.php';
+
+spl_autoload_register(
+    array(
+        Autoloader::class,
+        'register',
+    )
+);
 
 ( new \TotallyQuiche\BetterBanners\Better_Banners )->run();
