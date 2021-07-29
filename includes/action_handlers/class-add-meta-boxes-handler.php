@@ -27,7 +27,7 @@ final class Add_Meta_Boxes_Handler implements Action_Handler {
 
 		add_meta_box(
 			"{$custom_post_type_slug}_meta_box",
-			'Better Banners Settings',
+			'Banner Settings',
 			array(
 				$this,
 				'render_settings_meta_box',
