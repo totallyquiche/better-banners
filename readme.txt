@@ -1,4 +1,5 @@
 === Better Banners ===
+
 Contributors: totallyquiche
 Donate link: https://www.paypal.com/donate?hosted_button_id=E32BJX9EWGVKG
 Tags: banner, site message, announcement, warning, maintenance, disclaimer, header
@@ -13,11 +14,11 @@ Create and customize banners to display at the top of your website.
 
 == Description ==
 
-Create and customize banners to display at the top of your website.
+Create custom banners to display at the top of your website.
 
-Fully customize the content and background color and create as many banners as you'd like.
+Banners are fully customizable: include text, link, images, custom CSS, and more!
 
-Better Banners is perfect for system maintenance warnings, disclaimers, announcements, and more!
+Better Banners is perfect for system maintenance warnings, disclaimers, announcements, or general messages.
 
 == Installation ==
 
@@ -27,14 +28,17 @@ No extra setup steps needed -- just install the plugin and start creating Better
 
 == Frequently Asked Questions ==
 
-= Why aren't my banners showing up? =
+= Is there a pro version of Better Banners? =
 
-Some plugins or themes may prevent Better Banners from displaying properly. If your banners are not showing up, try toggling the "Display banners using JavaScript" option.
+Not yet, but one is in the works!
 
 = What level of support is available for Better Banners? =
 
 Please reach out via the Support tab. I will do my best to respond to questions, issues, etc. in a timely manner.
 
+= Why aren't my banners showing up? =
+
+Some plugins or themes may prevent Better Banners from displaying properly. If your banners are not showing up, try toggling the "Display banners using JavaScript" option.
 
 == Screenshots ==
 
