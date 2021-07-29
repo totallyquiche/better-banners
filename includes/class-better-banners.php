@@ -22,7 +22,7 @@ final class Better_Banners {
 	 *
 	 * @return string
 	 */
-	public static function getBannerPostTypeSlug() : string {
+	public static function get_banner_post_type_slug() : string {
 		return self::$plugin_prefix . '_banner';
 	}
 
@@ -31,7 +31,7 @@ final class Better_Banners {
 	 *
 	 * @return string
 	 */
-	public static function getDisplayBannersUsingJavaScriptOptionSlug() : string {
+	public static function get_display_banners_using_javascript_option_slug() : string {
         return self::$plugin_prefix . '_display_banners_using_javascript';
 	}
 
@@ -40,7 +40,7 @@ final class Better_Banners {
 	 *
 	 * @return string
 	 */
-	public static function getCustomInlineCssAllBannersOptionSlug() : string {
+	public static function get_custom_inline_css_all_banners_option_slug() : string {
 		return self::$plugin_prefix . '_custom_inline_css_all_banners';
 	}
 
@@ -82,8 +82,8 @@ final class Better_Banners {
 
 		if ( ! isset( $is_current_page_banner_page ) ) {
 
-			$is_current_page_banner_page = $_GET['post_type'] === self::getBannerPostTypeSlug() ||
-				get_post_type( $_GET['post'] ) === self::getBannerPostTypeSlug();
+			$is_current_page_banner_page = $_GET['post_type'] === self::get_banner_post_type_slug() ||
+				get_post_type( $_GET['post'] ) === self::get_banner_post_type_slug();
 		}
 
 		return $is_current_page_banner_page;
@@ -106,7 +106,7 @@ final class Better_Banners {
 	 * @return void
 	 */
 	public function wp_body_open() : void {
-		if ( ! get_option( self::getDisplayBannersUsingJavaScriptOptionSlug(), true ) ) {
+		if ( ! get_option( self::get_display_banners_using_javascript_option_slug(), true ) ) {
 			$this->display_banners();
 		}
 	}
@@ -162,18 +162,18 @@ final class Better_Banners {
 	 */
 	public function admin_menu() : void {
         add_submenu_page(
-            'edit.php?post_type=' . self::getBannerPostTypeSlug(),
+            'edit.php?post_type=' . self::get_banner_post_type_slug(),
             'Better Banners Options',
             'Options',
             'manage_options',
             self::$plugin_prefix . '_options',
             function () {
 				$plugin_prefix = self::$plugin_prefix;
-				$checked = get_option( self::getDisplayBannersUsingJavaScriptOptionSlug() ) ? 'checked="checked"' : '';
-				$checkbox_name = self::getDisplayBannersUsingJavaScriptOptionSlug();
-				$textarea_name = self::getCustomInlineCssAllBannersOptionSlug();
+				$checked = get_option( self::get_display_banners_using_javascript_option_slug() ) ? 'checked="checked"' : '';
+				$checkbox_name = self::get_display_banners_using_javascript_option_slug();
+				$textarea_name = self::get_custom_inline_css_all_banners_option_slug();
 				$submit_button_name = self::$plugin_prefix . '_options_form_submit_button';
-				$custom_inline_css_all_banners = get_option( self::getCustomInlineCssAllBannersOptionSlug() );
+				$custom_inline_css_all_banners = get_option( self::get_custom_inline_css_all_banners_option_slug() );
 
 				echo <<<HTML
 <h1>Better Banners</h1>
@@ -230,28 +230,28 @@ HTML;
 
 		if (
 			isset( $_POST[ self::$plugin_prefix . '_options_form_submit_button' ] ) &&
-			isset( $_POST[ self::getDisplayBannersUsingJavaScriptOptionSlug() ] )
+			isset( $_POST[ self::get_display_banners_using_javascript_option_slug() ] )
 		) {
 			update_option(
-				self::getDisplayBannersUsingJavaScriptOptionSlug(),
+				self::get_display_banners_using_javascript_option_slug(),
 				true
 			);
 		} elseif ( isset( $_POST[ self::$plugin_prefix . '_options_form_submit_button' ] ) ) {
 			update_option(
-				self::getDisplayBannersUsingJavaScriptOptionSlug(),
+				self::get_display_banners_using_javascript_option_slug(),
 				false
 			);
 		}
 
 		if (
 			isset( $_POST[ self::$plugin_prefix . '_options_form_submit_button' ] ) &&
-			isset( $_POST[ self::getCustomInlineCssAllBannersOptionSlug() ] )
+			isset( $_POST[ self::get_custom_inline_css_all_banners_option_slug() ] )
 		) {
 			update_option(
-				self::getCustomInlineCssAllBannersOptionSlug(),
+				self::get_custom_inline_css_all_banners_option_slug(),
 				sanitize_option(
-					self::getCustomInlineCssAllBannersOptionSlug(),
-					$_POST[ self::getCustomInlineCssAllBannersOptionSlug() ]
+					self::get_custom_inline_css_all_banners_option_slug(),
+					$_POST[ self::get_custom_inline_css_all_banners_option_slug() ]
 				)
 			);
 		}
@@ -274,7 +274,7 @@ HTML;
 	 * @return void
 	 */
 	private function add_options() : void {
-		$option_name = self::getDisplayBannersUsingJavaScriptOptionSlug();
+		$option_name = self::get_display_banners_using_javascript_option_slug();
 
 		if ( get_option( $option_name ) === false ) {
 			add_option(
@@ -283,7 +283,7 @@ HTML;
 			);
 		}
 
-		$option_name = self::getCustomInlineCssAllBannersOptionSlug();
+		$option_name = self::get_custom_inline_css_all_banners_option_slug();
 
 		if ( get_option( $option_name ) === false ) {
 			add_option(
@@ -299,7 +299,7 @@ HTML;
 	 */
 	private function register_post_type() : void {
 		register_post_type(
-			self::getBannerPostTypeSlug(),
+			self::get_banner_post_type_slug(),
 			array(
 				'description' => 'A Better Banners banner.',
 				'public'      => true,
@@ -357,7 +357,7 @@ HTML;
 	private function get_banners_html() : string {
 		$posts = get_posts(
 			array(
-				'post_type'   => self::getBannerPostTypeSlug(),
+				'post_type'   => self::get_banner_post_type_slug(),
 				'post_status' => 'publish',
 				'numberposts' => -1,
 			)
@@ -392,7 +392,7 @@ HTML;
 			}
 
 			$custom_inline_css_all_banners = esc_attr(
-				get_option( self::getCustomInlineCssAllBannersOptionSlug() )
+				get_option( self::get_custom_inline_css_all_banners_option_slug() )
 			);
 
 			$custom_inline_css_all_banners_properties = explode(PHP_EOL, $custom_inline_css_all_banners);
@@ -465,7 +465,7 @@ HTML;
 	 * @return void
 	 */
 	private function add_settings_meta_box() : void {
-		$custom_post_type_slug = self::getBannerPostTypeSlug();
+		$custom_post_type_slug = self::get_banner_post_type_slug();
 
 		add_meta_box(
 			"{$custom_post_type_slug}_meta_box",
@@ -524,7 +524,7 @@ HTML;
 			'better_banners_js',
 			'localizations',
 			array(
-				'displayBannersUsingJavaScript' => get_option( self::getDisplayBannersUsingJavaScriptOptionSlug(), true ),
+				'displayBannersUsingJavaScript' => get_option( self::get_display_banners_using_javascript_option_slug(), true ),
 				'bannersHtml' => $this->get_banners_html(),
 			)
 		);

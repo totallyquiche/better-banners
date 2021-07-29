@@ -29,7 +29,7 @@ final class Uninstaller {
         global $wpdb;
 
         $table_name = $wpdb->prefix . 'posts';
-        $post_type = \TotallyQuiche\BetterBanners\Better_Banners::getBannerPostTypeSlug();
+        $post_type = \TotallyQuiche\BetterBanners\Better_Banners::get_banner_post_type_slug();
 
         $wpdb->query( "DELETE FROM `$table_name` WHERE `post_type` = \"$post_type\";" );
     }
@@ -62,8 +62,8 @@ final class Uninstaller {
      */
     private function delete_options() : void {
         $option_names = array(
-            \TotallyQuiche\BetterBanners\Better_Banners::getDisplayBannersUsingJavaScriptOptionSlug(),
-            \TotallyQuiche\BetterBanners\Better_Banners::getCustomInlineCssAllBannersOptionSlug(),
+            \TotallyQuiche\BetterBanners\Better_Banners::get_display_banners_using_javascript_option_slug(),
+            \TotallyQuiche\BetterBanners\Better_Banners::get_custom_inline_css_all_banners_option_slug(),
         );
 
         foreach ( $option_names as $option_name ) {
