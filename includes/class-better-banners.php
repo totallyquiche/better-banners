@@ -53,7 +53,7 @@ final class Better_Banners {
         add_action(
             'init',
             array(
-                ( new \TotallyQuiche\BetterBanners\ActionHandlers\Init_Handler ),
+                ( new ActionHandlers\Init_Handler ),
                 'handle'
             )
         );
@@ -61,7 +61,7 @@ final class Better_Banners {
         add_action(
             'admin_enqueue_scripts',
             array(
-                ( new \TotallyQuiche\BetterBanners\ActionHandlers\Admin_Enqueue_Scripts_Handler ),
+                ( new ActionHandlers\Admin_Enqueue_Scripts_Handler ),
                 'handle'
             )
         );
@@ -69,7 +69,7 @@ final class Better_Banners {
         add_action(
             'wp_enqueue_scripts',
             array(
-                ( new \TotallyQuiche\BetterBanners\ActionHandlers\Wp_Enqueue_Scripts_Handler ),
+                ( new ActionHandlers\Wp_Enqueue_Scripts_Handler ),
                 'handle'
             )
         );
@@ -77,7 +77,7 @@ final class Better_Banners {
         add_action(
             'admin_menu',
             array(
-                ( new \TotallyQuiche\BetterBanners\ActionHandlers\Admin_Menu_Handler ),
+                ( new ActionHandlers\Admin_Menu_Handler ),
                 'handle'
             )
         );
@@ -85,7 +85,7 @@ final class Better_Banners {
         add_action(
             'wp_body_open',
             array(
-                ( new \TotallyQuiche\BetterBanners\ActionHandlers\Wp_Body_Open_Handler ),
+                ( new ActionHandlers\Wp_Body_Open_Handler ),
                 'handle'
             )
         );
@@ -93,7 +93,7 @@ final class Better_Banners {
         add_action(
             'add_meta_boxes',
             array(
-                ( new \TotallyQuiche\BetterBanners\ActionHandlers\Add_Meta_Boxes_Handler ),
+                ( new ActionHandlers\Add_Meta_Boxes_Handler ),
                 'handle'
             )
         );
@@ -101,7 +101,7 @@ final class Better_Banners {
         add_action(
             'in_admin_footer',
             array(
-                ( new \TotallyQuiche\BetterBanners\ActionHandlers\In_Admin_Footer_Handler ),
+                ( new ActionHandlers\In_Admin_Footer_Handler ),
                 'handle'
             )
         );
