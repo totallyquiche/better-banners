@@ -42,17 +42,29 @@ Some plugins or themes may prevent Better Banners from displaying properly. If y
 
 == Screenshots ==
 
-1. This screenshot shows a plain-text banner created using Better Banners
-2. This screenshot shows a banner with text and an image created using Better Banners.
-3. This image shows the banner post admin page.
+1. A plain-text banner created using Better Banners
+2. A banner with text and an image created using Better Banners
+3. The admin page for editing Better Banners
 
 == Changelog ==
+
+= 1.0.1 =
+
+* Fixes a bug in which custom CSS in the options page would display escape characters
+* Adds a clearfix to the banner so it retains its height when child elements are floating
+* Updates WYSIWYG editor initialization check for Chrome compatibility
+* Applies textarea escaping for added security against XSS attacks
+* Updates screenshot descriptions
 
 = 1.0.0 =
 
 * Initial release!
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+
+Update for minor bug fixes and security updates.
 
 = 1.0.0 =
 
