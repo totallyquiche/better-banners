@@ -33,7 +33,7 @@
 		});
 
 		const initializeEditor = function () {
-			if (typeof tinyMCE !== 'undefined') {
+			if (typeof tinyMCE.activeEditor.dom !== 'undefined') {
 				updateEditorBackgroundColor();
 			}
 		};
