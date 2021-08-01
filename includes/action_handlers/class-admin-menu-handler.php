@@ -24,7 +24,7 @@ final class Admin_Menu_Handler implements Action_Handler {
 				$checkbox_name = Better_Banners::get_display_banners_using_javascript_option_slug();
 				$textarea_name = Better_Banners::get_custom_inline_css_all_banners_option_slug();
 				$submit_button_name = Better_Banners::$plugin_prefix . '_options_form_submit_button';
-				$custom_inline_css_all_banners = get_option( Better_Banners::get_custom_inline_css_all_banners_option_slug() );
+				$custom_inline_css_all_banners = esc_textarea( stripslashes( get_option( Better_Banners::get_custom_inline_css_all_banners_option_slug() ) ) );
 
 				echo <<<HTML
 <h1>Better Banners</h1>
