@@ -33,13 +33,15 @@
 		});
 
 		const initializeEditor = function () {
-			if (typeof tinyMCE.activeEditor.dom !== 'undefined') {
-				updateEditorBackgroundColor();
+			if ($('#tqbb01-background-color').length) {
+				if (typeof tinyMCE.activeEditor.dom !== 'undefined') {
+					updateEditorBackgroundColor();
+
+					clearInterval(initializeEditor);
+				}
 			}
 		};
 
 		setInterval(initializeEditor, 0)
-
-		clearInterval(initializeEditor);
 	});
 } )( jQuery );
