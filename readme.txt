@@ -48,6 +48,10 @@ Some plugins or themes may prevent Better Banners from displaying properly. If y
 
 == Changelog ==
 
+= 1.0.2 =
+
+* Fixes JavaScript bug which was impacting performance on certain admin pages
+
 = 1.0.1 =
 
 * Fixes a bug in which custom CSS in the options page would display escape characters
@@ -61,6 +65,10 @@ Some plugins or themes may prevent Better Banners from displaying properly. If y
 * Initial release!
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+
+This update includes a bug fix which greatly improves performance on most admin pages.
 
 = 1.0.1 =
 
