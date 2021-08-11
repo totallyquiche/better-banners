@@ -6,16 +6,18 @@
 			palettes: true,
 			border: false,
 			width: 200,
-			defaultColor: '#007bff',
+			defaultColor: '#00c9c2',
 			change: function (event) {
 				setTimeout(initializeEditor, 10);
 			}
 		});
 
 		const initializeEditor = function () {
+			const backgroundColor = $('#tqbb01-background-color').val();
+
 			if (
 				typeof tinyMCE.activeEditor.dom !== 'undefined' &&
-				$('#tqbb01-background-color').val()
+				backgroundColor
 			) {
 				tinyMCE
 					.activeEditor
@@ -23,10 +25,10 @@
 					.setStyle(
 						tinymce.activeEditor.dom.select('body'),
 						'background-color',
-						$('#tqbb01-background-color').val()
+						backgroundColor
 					);
 
-				$('input[name="tqbb01-background-color"]').val($('#tqbb01-background-color').val());
+				$('input[name="tqbb01-background-color"]').val(backgroundColor);
 
 				clearInterval(initializer);
 			}
