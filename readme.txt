@@ -5,7 +5,7 @@ Donate link: https://www.paypal.com/donate?hosted_button_id=E32BJX9EWGVKG
 Tags: banner, site message, announcement, warning, maintenance, disclaimer, header
 Requires at least: 5.8
 Tested up to: 5.8
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -48,6 +48,10 @@ Some plugins or themes may prevent Better Banners from displaying properly. If y
 
 == Changelog ==
 
+= 1.0.3 =
+
+* Minor optimizations to improve performance
+
 = 1.0.2 =
 
 * Fixes JavaScript bug which was impacting performance on certain admin pages
@@ -65,6 +69,10 @@ Some plugins or themes may prevent Better Banners from displaying properly. If y
 * Initial release!
 
 == Upgrade Notice ==
+
+= 1.0.3 =
+
+This minor version update includes perofrmance enhancements.
 
 = 1.0.2 =
 
