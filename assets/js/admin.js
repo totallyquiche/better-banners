@@ -1,47 +1,33 @@
 ( ( $ ) => {
-	const updateEditorBackgroundColor = function () {
-		tinyMCE
-			.activeEditor
-			.dom
-			.addStyle('body { background-color:' + $('#tqbb01-background-color').val() +
-				' !important; }')
-
-		tinyMCE
-			.activeEditor
-			.dom
-			.addStyle('p { margin: 0 !important; }');
-	}
+	const initializeEditor = function () {
+		setTimeout(
+			() => {
+				tinyMCE
+					.activeEditor
+					.dom
+					.setStyle(
+						tinymce.activeEditor.dom.select('body'),
+						'background-color',
+						$('#tqbb01-background-color').val()
+					);
+			},
+			100
+		);
+	};
 
 	$(document).on('ready', function () {
+		$('#publish').append('<input type="hidden" name="tqbb01-background-color" value="" />');
+
 		$('#tqbb01-background-color').wpColorPicker({
 			palettes: true,
 			border: false,
 			width: 200,
-			clear: function () {
-				$('#tqbb01-background-color').wpColorPicker('color', '#007bff');
-			},
+			defaultColor: '#007bff',
 			change: function (event) {
-				updateEditorBackgroundColor();
+				initializeEditor();
 			}
 		});
 
-		$('#publish').on('click', function ( event ) {
-			if (! $('#tqbb01-background-color').hasClass('iris-error')) {
-				$(this).append('<input type="hidden" name="tqbb01-background-color" value="' +
-					$('#tqbb01-background-color').val() + '" />');
-			}
-		});
-
-		const initializeEditor = function () {
-			if ($('#tqbb01-background-color').length) {
-				if (typeof tinyMCE.activeEditor.dom !== 'undefined') {
-					updateEditorBackgroundColor();
-
-					clearInterval(initializeEditor);
-				}
-			}
-		};
-
-		setInterval(initializeEditor, 0)
+		initializeEditor();
 	});
 } )( jQuery );
