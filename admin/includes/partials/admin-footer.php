@@ -6,9 +6,7 @@
             href="https://briandady.com"
             target="_BLANK"
             title="Brian Dady's website"
-        >
-            Brian Dady
-        </a>. &#129505;<!-- heart emoji -->
+        >Brian Dady</a>.&nbsp;&#129505;<!-- heart emoji -->
 </span>
 
 <hr />
