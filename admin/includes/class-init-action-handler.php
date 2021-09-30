@@ -27,7 +27,7 @@ final class Init_Action_Handler implements Hook_Handler {
 			array(
 				'description' => 'A Better Banners banner.',
 				'public'      => true,
-				'menu_icon'   => 'dashicons-megaphone',
+				'menu_icon'   => Better_Banners_Admin::get_logo_image_url(),
 				'rewrite'     => false,
 				'labels'      => array(
 					'name'                  => 'Better Banners',

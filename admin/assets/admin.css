@@ -14,3 +14,8 @@
 #tqbb01-custom-inline-css {
     width: 100%;
 }
+
+#menu-posts-tqbb01_banner .wp-menu-image img {
+    max-width: 28px;
+    margin-top: -2px;
+}

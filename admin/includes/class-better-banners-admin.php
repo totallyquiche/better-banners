@@ -167,4 +167,13 @@ final class Better_Banners_Admin {
             $_GET['page'] === Better_Banners::PLUGIN_PREFIX . '_options'
         );
     }
+
+    /**
+     * Returns the URL to the Better Banners logo image.
+     *
+     * @return string
+     */
+    public static function get_logo_image_url() : string {
+        return plugin_dir_url( __FILE__ ) . '../assets/better-banners-logo.svg';
+    }
 }
