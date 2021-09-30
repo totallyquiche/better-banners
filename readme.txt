@@ -74,9 +74,13 @@ Some plugins or themes may prevent Better Banners from displaying properly. If y
 
 == Upgrade Notice ==
 
+= 1.0.4 =
+
+Upgrades internal framework for performance and easier development
+
 = 1.0.3 =
 
-This minor version update includes perofrmance enhancements.
+This minor version update includes performance enhancements.
 
 = 1.0.2 =
 

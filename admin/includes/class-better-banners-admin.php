@@ -46,12 +46,24 @@ final class Better_Banners_Admin {
 
         if ( self::is_current_page_banner_post_page() ) {
             wp_enqueue_style('wp-color-picker');
+
+            wp_enqueue_style(
+                Better_Banners::PLUGIN_PREFIX . '_post_post_css',
+                plugin_dir_url( __FILE__ ) . '../assets/pages/post/post.css'
+            );
+        }
+
+        if ( self::is_current_page_banner_table_page() ) {
+            wp_enqueue_style(
+                Better_Banners::PLUGIN_PREFIX . '_table_table_css',
+                plugin_dir_url( __FILE__ ) . '../assets/pages/table/table.css'
+            );
         }
 
         if ( self::is_current_page_options_page() ) {
             wp_enqueue_style(
-                Better_Banners::PLUGIN_PREFIX . '_options_css',
-                plugin_dir_url( __FILE__ ) . '../assets/options.css'
+                Better_Banners::PLUGIN_PREFIX . '_options_options_css',
+                plugin_dir_url( __FILE__ ) . '../assets/pages/options/options.css'
             );
         }
     }
@@ -72,8 +84,8 @@ final class Better_Banners_Admin {
             wp_enqueue_script( 'wp-color-picker');
 
             wp_enqueue_script(
-                Better_Banners::PLUGIN_PREFIX . '_posts_banner_js',
-                plugin_dir_url( __FILE__ ) . '../assets/post.js',
+                Better_Banners::PLUGIN_PREFIX . '_post_post_js',
+                plugin_dir_url( __FILE__ ) . '../assets/pages/post/post.js',
                 array('jquery')
             );
         }
@@ -151,6 +163,18 @@ final class Better_Banners_Admin {
         global $pagenow;
 
         return ( $pagenow === 'post-new.php' || $pagenow === 'post.php') &&
+            self::is_current_page_banner_page();
+    }
+
+    /**
+     * Indicates whether the current page is the banner table page.
+     *
+     * @return bool
+     */
+    public static function is_current_page_banner_table_page() : bool {
+        global $pagenow;
+
+        return $pagenow === 'edit.php'  &&
             self::is_current_page_banner_page();
     }
 

@@ -1,0 +1,15 @@
+#tqbb01-color-picker-container > label {
+	display: inline-block;
+	margin-top: 8px;
+}
+
+#tqbb01-custom-inline-css {
+    width: 100%;
+}
+
+#minor-publishing,
+#edit-slug-box,
+#message a,
+#wp-admin-bar-view {
+	display: none;
+}
