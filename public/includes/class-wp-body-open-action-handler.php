@@ -26,7 +26,7 @@ final class Wp_Body_Open_Action_Handler implements Hook_Handler {
             true
         );
 
-        if ( ! $display_banners_using_javascript ) {
+        if ( $pagenow !== 'wp-login.php' && ! $display_banners_using_javascript ) {
             require_once( __DIR__ . '/partials/banners.php' );
         }
     }

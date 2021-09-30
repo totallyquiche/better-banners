@@ -59,7 +59,9 @@ final class Better_Banners_Public {
             true
         );
 
-        if ( $display_banners_using_javascript ) {
+        global $pagenow;
+
+        if ( $pagenow !== 'wp-login.php' && $display_banners_using_javascript ) {
             wp_localize_script(
                 Better_Banners::PLUGIN_PREFIX . '_public_js',
                 'localizations',
