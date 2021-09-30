@@ -48,6 +48,13 @@ final class Better_Banners_Admin {
         if ( self::is_current_page_banner_post_page() ) {
             wp_enqueue_style('wp-color-picker');
         }
+
+        if ( self::is_current_page_options_page() ) {
+            wp_enqueue_style(
+                Better_Banners::PLUGIN_PREFIX . '_options_css',
+                plugin_dir_url( __FILE__ ) . '../assets/options.css'
+            );
+        }
     }
 
     /**
@@ -107,7 +114,7 @@ final class Better_Banners_Admin {
             );
         }
 
-        if ( $_GET['page'] === Better_Banners::PLUGIN_PREFIX . '_options' ) {
+        if ( self::is_current_page_options_page() ) {
             $this->hook_registrar->register(
                 'action',
                 'init',
@@ -141,10 +148,23 @@ final class Better_Banners_Admin {
      *
      * @return bool
      */
-    public function is_current_page_banner_post_page() : bool {
+    public static function is_current_page_banner_post_page() : bool {
         global $pagenow;
 
         return ( $pagenow === 'post-new.php' || $pagenow === 'post.php') &&
             self::is_current_page_banner_page();
+    }
+
+    /**
+     * Indicates whether the current page is the options page.
+     *
+     * @return bool
+     */
+    public static function is_current_page_options_page() : bool {
+        return (
+            self::is_current_page_banner_page() &&
+            isset( $_GET['page'] ) &&
+            $_GET['page'] === Better_Banners::PLUGIN_PREFIX . '_options'
+        );
     }
 }

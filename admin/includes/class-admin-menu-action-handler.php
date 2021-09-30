@@ -37,6 +37,7 @@ final class Admin_Menu_Action_Handler implements Hook_Handler {
         $textarea_name = Better_Banners::get_custom_inline_css_all_banners_option_name();
         $submit_button_name = $plugin_prefix . '_options_form_submit_button';
         $custom_inline_css_all_banners = esc_textarea( stripslashes( get_option( Better_Banners::get_custom_inline_css_all_banners_option_name() ) ) );
+        $logo_image_url = plugin_dir_url( __FILE__ ) . '../assets/better-banners-logo.svg';
 
         require_once( __DIR__ . '/partials/options-submenu-page.php' );
     }
