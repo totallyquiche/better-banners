@@ -4,7 +4,6 @@ namespace TotallyQuiche\BetterBanners\Admin\Pages\Plugin;
 
 use TotallyQuiche\BetterBanners\Hook_Handler;
 use TotallyQuiche\BetterBanners\Better_Banners;
-use TotallyQuiche\BetterBanners\Admin\Better_Banners_Admin;
 
 final class Add_Meta_Boxes_Action_Handler implements Hook_Handler {
     /**

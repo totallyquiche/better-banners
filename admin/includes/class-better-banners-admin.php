@@ -7,7 +7,6 @@ use TotallyQuiche\BetterBanners\Hook_Registrar;
 use TotallyQuiche\BetterBanners\Admin\Pages\Plugin\Add_Meta_Boxes_Action_Handler;
 use TotallyQuiche\BetterBanners\Admin\Pages\Plugin\In_Admin_Footer_Action_Handler;
 use TotallyQuiche\BetterBanners\Admin\Pages\Options\Init_Action_Handler as Options_Page_Init_Action_Handler;
-use TotallyQuiche\BetterBanners\Admin\Pages\Post\Init_Action_Handler as Post_Page_Init_Action_Handler;
 
 final class Better_Banners_Admin {
     /**

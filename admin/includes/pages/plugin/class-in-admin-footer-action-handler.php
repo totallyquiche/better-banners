@@ -3,7 +3,6 @@
 namespace TotallyQuiche\BetterBanners\Admin\Pages\Plugin;
 
 use TotallyQuiche\BetterBanners\Hook_Handler;
-use TotallyQuiche\BetterBanners\Better_Banners;
 
 final class In_Admin_Footer_Action_Handler implements Hook_Handler {
     /**

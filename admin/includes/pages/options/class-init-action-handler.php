@@ -50,26 +50,28 @@ final class Init_Action_Handler implements Hook_Handler {
 	 */
 	private static function handle_post() : void {
         $plugin_prefix = Better_Banners::PLUGIN_PREFIX;
+        $options_form_submit_button_name = $plugin_prefix . '_options_form_submit_button';
+        $get_display_banners_using_javascript_option_name = Better_Banners::get_display_banners_using_javascript_option_name();
 
         // Options page Display Banners using JavaScript checkbox
 		if (
-			isset( $_POST[ $plugin_prefix . '_options_form_submit_button' ] ) &&
-			isset( $_POST[ Better_Banners::get_display_banners_using_javascript_option_name() ] )
+			isset( $_POST[ $options_form_submit_button_name ] ) &&
+			isset( $_POST[ $get_display_banners_using_javascript_option_name ] )
 		) {
 			update_option(
-				Better_Banners::get_display_banners_using_javascript_option_name(),
+				$get_display_banners_using_javascript_option_name,
 				true
 			);
-		} elseif ( isset( $_POST[ $plugin_prefix . '_options_form_submit_button' ] ) ) {
+		} elseif ( isset( $_POST[ $options_form_submit_button_name ] ) ) {
             update_option(
-				Better_Banners::get_display_banners_using_javascript_option_name(),
+				$get_display_banners_using_javascript_option_name,
 				false
 			);
 		}
 
         // Options page Custom Inline CSS (all banners) textarea
 		if (
-			isset( $_POST[ $plugin_prefix . '_options_form_submit_button' ] ) &&
+			isset( $_POST[ $options_form_submit_button_name ] ) &&
 			isset( $_POST[ Better_Banners::get_custom_inline_css_all_banners_option_name() ] )
 		) {
 			update_option(
