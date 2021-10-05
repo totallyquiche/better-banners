@@ -99,6 +99,8 @@ final class Better_Banners_Public {
             )
         );
 
+        $posts = apply_filters( Better_Banners::PLUGIN_PREFIX . '_display_banners_posts', $posts );
+
         $plugin_prefix = Better_Banners::PLUGIN_PREFIX;
 
         $html = '<div class="' . $plugin_prefix . '-banners-container">';

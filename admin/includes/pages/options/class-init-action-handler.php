@@ -4,15 +4,16 @@ namespace TotallyQuiche\BetterBanners\Admin\Pages\Options;
 
 use TotallyQuiche\BetterBanners\Hook_Handler;
 use TotallyQuiche\BetterBanners\Better_Banners;
-use TotallyQuiche\BetterBanners\Admin\Better_Banners_Admin;
 
 final class Init_Action_Handler implements Hook_Handler {
     /**
      * Handle the init action.
      *
+     * @mixed ...$args
+     *
      * @return void
      */
-    public static function handle() : void {
+    public static function handle( ...$args ) : void {
         self::add_options();
         self::handle_post();
     }

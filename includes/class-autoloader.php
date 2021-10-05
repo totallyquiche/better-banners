@@ -11,8 +11,6 @@ final class Autoloader {
      * @return void
      */
     public static function register( string $class_name ) : void {
-        $plugin_dir_path = plugin_dir_path( __FILE__ );
-
         $class_map = array(
             // Common classes
             'TotallyQuiche\BetterBanners\Better_Banners'

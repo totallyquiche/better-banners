@@ -9,9 +9,11 @@ final class Add_Meta_Boxes_Action_Handler implements Hook_Handler {
     /**
      * Handle the add_meta_boxes action.
      *
+     * @mixed ...$args
+     *
      * @return void
      */
-    public static function handle() : void {
+    public static function handle( ...$args ) : void {
         $banner_post_type_slug = Better_Banners::get_banner_post_type_slug();
 
         add_meta_box(

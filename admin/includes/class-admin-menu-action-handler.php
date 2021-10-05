@@ -9,9 +9,11 @@ final class Admin_Menu_Action_Handler implements Hook_Handler {
     /**
      * Handle the admin_menu action.
      *
+     * @mixed ...$args
+     *
      * @return void
      */
-    public static function handle() : void {
+    public static function handle( ...$args ) : void {
 		add_submenu_page(
 			'edit.php?post_type=' . Better_Banners::get_banner_post_type_slug(),
 			'Better Banners Options',

@@ -9,9 +9,11 @@ final class Init_Action_Handler implements Hook_Handler {
     /**
      * Handle the init action.
      *
+     * @mixed ...$args
+     *
      * @return void
      */
-    public static function handle() : void {
+    public static function handle( ...$args ) : void {
         self::handle_register_post_type();
         self::handle_post();
     }

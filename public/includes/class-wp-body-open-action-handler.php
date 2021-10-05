@@ -9,9 +9,11 @@ final class Wp_Body_Open_Action_Handler implements Hook_Handler {
     /**
      * Handle the wp_body_open action.
      *
+     * @mixed ...$args
+     *
      * @return void
      */
-    public static function handle() : void {
+    public static function handle( ...$args ) : void {
         self::display_banners();
     }
 
