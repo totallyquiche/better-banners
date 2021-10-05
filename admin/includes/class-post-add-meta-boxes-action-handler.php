@@ -1,11 +1,11 @@
 <?php declare( strict_types = 1 );
 
-namespace TotallyQuiche\BetterBanners\Admin\Pages\Plugin;
+namespace TotallyQuiche\BetterBanners\Admin;
 
 use TotallyQuiche\BetterBanners\Hook_Handler;
 use TotallyQuiche\BetterBanners\Better_Banners;
 
-final class Add_Meta_Boxes_Action_Handler implements Hook_Handler {
+final class Post_Add_Meta_Boxes_Action_Handler implements Hook_Handler {
     /**
      * Handle the add_meta_boxes action.
      *
@@ -45,6 +45,6 @@ final class Add_Meta_Boxes_Action_Handler implements Hook_Handler {
 			get_post_meta( $post_id, $plugin_prefix . '_custom_inline_css' )[0]
 		);
 
-        require_once( __DIR__ . '/../../partials/settings-meta-box.php' );
+        require_once( __DIR__ . '/partials/settings-meta-box.php' );
     }
 }

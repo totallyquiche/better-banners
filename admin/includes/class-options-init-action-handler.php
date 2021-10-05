@@ -1,11 +1,11 @@
 <?php declare( strict_types = 1 );
 
-namespace TotallyQuiche\BetterBanners\Admin\Pages\Options;
+namespace TotallyQuiche\BetterBanners\Admin;
 
 use TotallyQuiche\BetterBanners\Hook_Handler;
 use TotallyQuiche\BetterBanners\Better_Banners;
 
-final class Init_Action_Handler implements Hook_Handler {
+final class Options_Init_Action_Handler implements Hook_Handler {
     /**
      * Handle the init action.
      *

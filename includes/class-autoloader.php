@@ -31,12 +31,12 @@ final class Autoloader {
                 => '../admin/includes/class-init-action-handler.php',
             'TotallyQuiche\BetterBanners\Admin\Admin_Menu_Action_Handler'
                 => '../admin/includes/class-admin-menu-action-handler.php',
-            'TotallyQuiche\BetterBanners\Admin\Pages\Plugin\Add_Meta_Boxes_Action_Handler'
-                => '../admin/includes/pages/plugin/class-add-meta-boxes-action-handler.php',
-            'TotallyQuiche\BetterBanners\Admin\Pages\Plugin\In_Admin_Footer_Action_Handler'
-                => '../admin/includes/pages/plugin/class-in-admin-footer-action-handler.php',
-            'TotallyQuiche\BetterBanners\Admin\Pages\Options\Init_Action_Handler'
-                => '../admin/includes/pages/options/class-init-action-handler.php',
+            'TotallyQuiche\BetterBanners\Admin\Post_Add_Meta_Boxes_Action_Handler'
+                => '../admin/includes/class-post-add-meta-boxes-action-handler.php',
+            'TotallyQuiche\BetterBanners\Admin\Plugin_In_Admin_Footer_Action_Handler'
+                => '../admin/includes/class-plugin-in-admin-footer-action-handler.php',
+            'TotallyQuiche\BetterBanners\Admin\Options_Init_Action_Handler'
+                => '../admin/includes/class-options-init-action-handler.php',
         );
 
         if ( array_key_exists( $class_name, $class_map ) ) {

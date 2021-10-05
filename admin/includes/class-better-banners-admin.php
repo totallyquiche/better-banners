@@ -4,9 +4,6 @@ namespace TotallyQuiche\BetterBanners\Admin;
 
 use TotallyQuiche\BetterBanners\Better_Banners;
 use TotallyQuiche\BetterBanners\Hook_Registrar;
-use TotallyQuiche\BetterBanners\Admin\Pages\Plugin\Add_Meta_Boxes_Action_Handler;
-use TotallyQuiche\BetterBanners\Admin\Pages\Plugin\In_Admin_Footer_Action_Handler;
-use TotallyQuiche\BetterBanners\Admin\Pages\Options\Init_Action_Handler as Options_Page_Init_Action_Handler;
 
 final class Better_Banners_Admin {
     /**
@@ -49,21 +46,21 @@ final class Better_Banners_Admin {
 
             wp_enqueue_style(
                 Better_Banners::PLUGIN_PREFIX . '_post_post_css',
-                plugin_dir_url( __FILE__ ) . '../assets/pages/post/post.css'
+                plugin_dir_url( __FILE__ ) . '../assets/post.css'
             );
         }
 
         if ( self::is_current_page_banner_table_page() ) {
             wp_enqueue_style(
                 Better_Banners::PLUGIN_PREFIX . '_table_table_css',
-                plugin_dir_url( __FILE__ ) . '../assets/pages/table/table.css'
+                plugin_dir_url( __FILE__ ) . '../assets/table.css'
             );
         }
 
         if ( self::is_current_page_options_page() ) {
             wp_enqueue_style(
                 Better_Banners::PLUGIN_PREFIX . '_options_options_css',
-                plugin_dir_url( __FILE__ ) . '../assets/pages/options/options.css'
+                plugin_dir_url( __FILE__ ) . '../assets/options.css'
             );
         }
     }
@@ -85,7 +82,7 @@ final class Better_Banners_Admin {
 
             wp_enqueue_script(
                 Better_Banners::PLUGIN_PREFIX . '_post_post_js',
-                plugin_dir_url( __FILE__ ) . '../assets/pages/post/post.js',
+                plugin_dir_url( __FILE__ ) . '../assets/post.js',
                 array('jquery')
             );
         }
@@ -113,7 +110,7 @@ final class Better_Banners_Admin {
             $this->hook_registrar->register(
                 'action',
                 'in_admin_footer',
-                new In_Admin_Footer_Action_Handler
+                new Plugin_In_Admin_Footer_Action_Handler
             );
         }
 
@@ -121,7 +118,7 @@ final class Better_Banners_Admin {
             $this->hook_registrar->register(
                 'action',
                 'add_meta_boxes',
-                new Add_Meta_Boxes_Action_Handler
+                new Post_Add_Meta_Boxes_Action_Handler
             );
         }
 
@@ -129,7 +126,7 @@ final class Better_Banners_Admin {
             $this->hook_registrar->register(
                 'action',
                 'init',
-                new Options_Page_Init_Action_Handler
+                new Options_Init_Action_Handler
             );
         }
     }
