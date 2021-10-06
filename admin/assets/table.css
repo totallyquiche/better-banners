@@ -1,3 +1,7 @@
 .row-actions {
 	display: none;
 }
+
+table, thead, tfoot {
+    border-radius: 0.5em;
+}

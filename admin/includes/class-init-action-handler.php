@@ -31,10 +31,11 @@ final class Init_Action_Handler implements Hook_Handler {
 				'public'      => true,
 				'menu_icon'   => Better_Banners_Admin::get_logo_image_url(),
 				'rewrite'     => false,
+                'label'       => 'Better Banners',
 				'labels'      => array(
 					'name'                  => 'Better Banners',
 					'singular_name'         => 'Banner',
-					'add_new_item'          => 'Add New Banner',
+					'add_new'          => 'Add New Banner',
 					'edit_item'             => 'Edit Banner',
 					'new_item'              => 'New Banner',
 					'view_item'             => 'View Banner',
