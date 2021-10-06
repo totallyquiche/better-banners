@@ -41,6 +41,13 @@ final class Better_Banners_Admin {
             plugin_dir_url( __FILE__ ) . '../assets/admin.css'
         );
 
+        if ( self::is_current_page_banner_page() ) {
+            wp_enqueue_style(
+                Better_Banners::PLUGIN_PREFIX . '_plugin_css',
+                plugin_dir_url( __FILE__ ) . '../assets/plugin.css'
+            );
+        }
+
         if ( self::is_current_page_banner_post_page() ) {
             wp_enqueue_style('wp-color-picker');
 
@@ -54,13 +61,6 @@ final class Better_Banners_Admin {
             wp_enqueue_style(
                 Better_Banners::PLUGIN_PREFIX . '_table_table_css',
                 plugin_dir_url( __FILE__ ) . '../assets/table.css'
-            );
-        }
-
-        if ( self::is_current_page_options_page() ) {
-            wp_enqueue_style(
-                Better_Banners::PLUGIN_PREFIX . '_options_options_css',
-                plugin_dir_url( __FILE__ ) . '../assets/options.css'
             );
         }
     }
@@ -105,6 +105,14 @@ final class Better_Banners_Admin {
             'admin_menu',
             new Admin_Menu_Action_Handler
         );
+
+        if ( self::is_current_page_banner_page() ) {
+            $this->hook_registrar->register(
+                'action',
+                'in_admin_header',
+                new In_Admin_Header_Action_Handler
+            );
+        }
 
         if ( self::is_current_page_banner_page() ) {
             $this->hook_registrar->register(

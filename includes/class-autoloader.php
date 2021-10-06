@@ -33,6 +33,8 @@ final class Autoloader {
                 => '../admin/includes/class-admin-menu-action-handler.php',
             'TotallyQuiche\BetterBanners\Admin\Post_Add_Meta_Boxes_Action_Handler'
                 => '../admin/includes/class-post-add-meta-boxes-action-handler.php',
+            'TotallyQuiche\BetterBanners\Admin\In_Admin_Header_Action_Handler'
+                => '../admin/includes/class-in-admin-header-action-handler.php',
             'TotallyQuiche\BetterBanners\Admin\Plugin_In_Admin_Footer_Action_Handler'
                 => '../admin/includes/class-plugin-in-admin-footer-action-handler.php',
             'TotallyQuiche\BetterBanners\Admin\Options_Init_Action_Handler'
