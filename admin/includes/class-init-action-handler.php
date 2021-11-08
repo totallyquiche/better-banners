@@ -6,24 +6,24 @@ use TotallyQuiche\BetterBanners\Hook_Handler;
 use TotallyQuiche\BetterBanners\Better_Banners;
 
 final class Init_Action_Handler implements Hook_Handler {
-    /**
-     * Handle the init action.
-     *
-     * @mixed ...$args
-     *
-     * @return void
-     */
-    public static function handle( ...$args ) : void {
-        self::handle_register_post_type();
-        self::handle_post();
-    }
+	/**
+	 * Handle the init action.
+	 *
+	 * @mixed ...$args
+	 *
+	 * @return void
+	 */
+	public static function handle( ...$args ) : void {
+		self::handle_register_post_type();
+		self::handle_post();
+	}
 
-    /**
-     * Register the Banner post type.
-     *
-     * @return void
-     */
-    private static function handle_register_post_type() : void {
+	/**
+	 * Register the Banner post type.
+	 *
+	 * @return void
+	 */
+	private static function handle_register_post_type() : void {
 		register_post_type(
 			Better_Banners::get_banner_post_type_slug(),
 			array(
@@ -31,7 +31,7 @@ final class Init_Action_Handler implements Hook_Handler {
 				'public'      => true,
 				'menu_icon'   => Better_Banners_Admin::get_logo_image_url(),
 				'rewrite'     => false,
-                'label'       => 'Better Banners',
+				'label'       => 'Better Banners',
 				'labels'      => array(
 					'name'                  => 'Better Banners',
 					'singular_name'         => 'Banner',
@@ -56,7 +56,7 @@ final class Init_Action_Handler implements Hook_Handler {
 				),
 			)
 		);
-    }
+	}
 
 	/**
 	 * Handle form posts.
@@ -64,39 +64,39 @@ final class Init_Action_Handler implements Hook_Handler {
 	 * @return void
 	 */
 	private static function handle_post() : void {
-        $plugin_prefix = Better_Banners::PLUGIN_PREFIX;
+		$plugin_prefix = Better_Banners::PLUGIN_PREFIX;
 
-        // Banner post Background Color
+		// Banner post Background Color
 		if (
-            isset( $_POST['post_ID'] ) &&
-            isset( $_POST[ $plugin_prefix . '-background-color' ] )
-        ) {
+			isset( $_POST['post_ID'] ) &&
+			isset( $_POST[ $plugin_prefix . '-background-color' ] )
+		) {
 			wp_update_post(
 				array(
 					'ID'         => intval( $_POST['post_ID'] ),
 					'meta_input' => array(
 						$plugin_prefix . '_background_color' =>
-                            sanitize_hex_color(
-                                $_POST[ $plugin_prefix . '-background-color' ]
-                            ),
+							sanitize_hex_color(
+								$_POST[ $plugin_prefix . '-background-color' ]
+							),
 					),
 				)
 			);
 		}
 
-        // Banner post Custom Inline CSS
+		// Banner post Custom Inline CSS
 		if (
-            isset( $_POST['post_ID'] ) &&
-            isset( $_POST[ $plugin_prefix . '-custom-inline-css' ] )
-        ) {
-            wp_update_post(
+			isset( $_POST['post_ID'] ) &&
+			isset( $_POST[ $plugin_prefix . '-custom-inline-css' ] )
+		) {
+			wp_update_post(
 				array(
 					'ID'         => intval( $_POST['post_ID'] ),
 					'meta_input' => array(
 						$plugin_prefix . '_custom_inline_css' =>
-                            esc_html(
-                                $_POST[ $plugin_prefix . '-custom-inline-css' ]
-                            ),
+							esc_html(
+								$_POST[ $plugin_prefix . '-custom-inline-css' ]
+							),
 					),
 				)
 			);
