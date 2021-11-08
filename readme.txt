@@ -5,7 +5,7 @@ Donate link: https://www.paypal.com/donate?hosted_button_id=E32BJX9EWGVKG
 Tags: banner, site message, announcement, warning, maintenance, disclaimer, header
 Requires at least: 5.8
 Tested up to: 5.8
-Stable tag: 1.0.4
+Stable tag: 1.1.0
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
