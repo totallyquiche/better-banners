@@ -42,9 +42,10 @@ Some plugins or themes may prevent Better Banners from displaying properly. If y
 
 == Screenshots ==
 
-1. A plain-text banner created using Better Banners
-2. A banner with text and an image created using Better Banners
-3. The admin page for editing Better Banners
+1. Display fully customizable and interactive banners on your website.
+2. Easily create new banners using the familiar, built-in WordPress post editor.
+3. Manage your banners in one convenient location.
+4. Apply custom styles to all banners at once or individually.
 
 == Changelog ==
 
