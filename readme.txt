@@ -48,6 +48,10 @@ Some plugins or themes may prevent Better Banners from displaying properly. If y
 
 == Changelog ==
 
+= 1.1.0 =
+
+Admin UI enhancements
+
 = 1.0.4 =
 
 * Upgrades internal framework for performance and easier development
