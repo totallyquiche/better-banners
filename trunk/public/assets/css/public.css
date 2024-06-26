@@ -1,0 +1,17 @@
+.tqbb01-banner {
+  position: relative;
+  z-index: 99999;
+  width: 100%;
+  padding: 0.5em;
+}
+
+.tqbb01-banner::after {
+  content: ' ';
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.tqbb01-banner p {
+  margin: 0;
+}
