@@ -2,10 +2,10 @@
 
 Contributors: totallyquiche
 Donate link: https://www.paypal.com/donate?hosted_button_id=E32BJX9EWGVKG
-Tags: Header, Announcement, Notification, Warning, Alert, Message
+Tags: Header, Announcement, Notification, Warning, Alert
 Requires at least: 6.5.5
 Tested up to: 6.5.5
-Stable tag: 1.1.1
+Stable tag: 2.0.0
 Requires PHP: 8.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
