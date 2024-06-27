@@ -43,11 +43,16 @@ Some plugins or themes may prevent Better Banners from displaying properly. If y
 == Screenshots ==
 
 1. Manage multiple banners in a navtive WordPress experience
-2. Live preview of your banner within the post editor
-3. Global style overrides for all banners
-4. Banners display above site content
+2. Apply custom CSS styles to your banner
+3. Apply custom CSS styles globally to all banners
+4. Banners display above all site content
 
 == Changelog ==
+
+= 2.0.0 =
+
+* Removes preview section
+* Adds custom post CSS example
 
 = 1.2.2 =
 

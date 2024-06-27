@@ -12,5 +12,8 @@ echo <<<HTML
 	<label for="{$plugin_prefix}-custom-inline-css">Custom Inline CSS</label>
 	<br />
 	<textarea rows="5" id="{$plugin_prefix}-custom-inline-css" name="{$plugin_prefix}-custom-inline-css" form="post">{$custom_inline_css}</textarea>
+	<label for="{$plugin_prefix}-custom-inline-css-preview">Example</label>
+	<br />
+    <textarea rows="5" id="{$plugin_prefix}-custom-inline-css-preview" name="{$plugin_prefix}-custom-inline-css-preview" readonly>text-decoration: underline;\nfont-size: 2em;</textarea>
 </div>
 HTML;

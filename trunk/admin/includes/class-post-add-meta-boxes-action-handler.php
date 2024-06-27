@@ -21,13 +21,6 @@ final class Post_Add_Meta_Boxes_Action_Handler implements Hook_Handler
         $banner_post_type_slug = Better_Banners::get_banner_post_type_slug();
 
         add_meta_box(
-            "{$banner_post_type_slug}_preview_meta_box",
-            'Banner Preview',
-            [self::class, 'render_preview_meta_box'],
-            $banner_post_type_slug
-        );
-
-        add_meta_box(
             "{$banner_post_type_slug}_settings_meta_box",
             'Banner Settings',
             [self::class, 'render_settings_meta_box'],
@@ -58,17 +51,5 @@ final class Post_Add_Meta_Boxes_Action_Handler implements Hook_Handler
         );
 
         require_once(__DIR__ . '/partials/settings-meta-box.php');
-    }
-
-    /**
-     * Render the preview meta box.
-     *
-     * @return void
-     */
-    public static function render_preview_meta_box(): void
-    {
-        $plugin_prefix = Better_Banners::PLUGIN_PREFIX;
-
-        require_once(__DIR__ . '/partials/preview-meta-box.php');
     }
 }
